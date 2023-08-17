@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { editCartItem, deleteCartItem } from '../../actions'
+import { editCartItem, removeCartItem } from '../../store/slices/cartSlice'
 
-const ShoppingCartPage = ({ items, editCartItem, deleteCartItem }) => {
+const ShoppingCartPage = () => {
+  const dispatch = useDispatch()
+
+  const items = useSelector((state) => state.cartItems)
+
   const [total, setTotal] = useState(
     items
       .map((item) => item.price * item.quantity)
@@ -11,8 +15,8 @@ const ShoppingCartPage = ({ items, editCartItem, deleteCartItem }) => {
   )
   const navigation = useNavigate()
 
-  const onQuantityChange = (item, qunatity) => {
-    editCartItem(item, qunatity)
+  const onQuantityChange = (product, quantity) => {
+    dispatch(editCartItem({ product, quantity: +quantity }))
   }
   const updateTotal = useEffect(() => {
     setTotal(
@@ -23,7 +27,7 @@ const ShoppingCartPage = ({ items, editCartItem, deleteCartItem }) => {
   }, [items])
 
   const deleteProductFromCart = (item) => {
-    deleteCartItem(item)
+    dispatch(removeCartItem(item))
   }
   return (
     <div className="mx-16 text-center mb-40 px-2 pt-16">
@@ -119,10 +123,4 @@ const ShoppingCartPage = ({ items, editCartItem, deleteCartItem }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return { items: state.cartProducts }
-}
-
-export default connect(mapStateToProps, { editCartItem, deleteCartItem })(
-  ShoppingCartPage
-)
+export default ShoppingCartPage
