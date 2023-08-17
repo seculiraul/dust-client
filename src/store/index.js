@@ -6,6 +6,7 @@ import { orderServiceApi } from './apis/orderServiceApi'
 import { productApi } from './apis/productApi'
 import { userApi } from './apis/userApi'
 import { queryParamSlice } from './slices/queryParamSlice'
+import { cartSlice } from './slices/cartSlice'
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authSlice.reducer,
     queryParam: queryParamSlice.reducer,
+    cartItems: cartSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

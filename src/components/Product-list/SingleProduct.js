@@ -3,14 +3,16 @@ import { RadioGroup } from '@headlessui/react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { addToCart } from '../../actions'
+import { connect, useDispatch } from 'react-redux'
+
+import { addProductToCart } from '../../store/slices/cartSlice'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 const SingleProduct = ({ cart, addToCart }) => {
+  const dispatch = useDispatch()
   const { code } = useParams()
   const navigate = useNavigate()
 
@@ -56,7 +58,8 @@ const SingleProduct = ({ cart, addToCart }) => {
   const onAddToCartClick = (e) => {
     e.preventDefault()
 
-    addToCart(product, selectedSize, 1)
+    product.nameAndSize = product.code + selectedSize
+    dispatch(addProductToCart(product))
   }
   return (
     <div className="bg-white">
@@ -329,9 +332,4 @@ const SingleProduct = ({ cart, addToCart }) => {
     </div>
   )
 }
-const mapStateToProps = (state) => {
-  return {
-    cart: state.cartProducts,
-  }
-}
-export default connect(mapStateToProps, { addToCart })(SingleProduct)
+export default SingleProduct
