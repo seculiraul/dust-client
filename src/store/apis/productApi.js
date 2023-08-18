@@ -29,8 +29,20 @@ const productApi = createApi({
         }
       },
     }),
+    fetchSingleProduct: builder.query({
+      query: (code) => {
+        return {
+          url: `/api/v1/products/${code}`,
+          method: 'GET',
+        }
+      },
+    }),
   }),
 })
 
-export const { useFetchProductsQuery, useFetchTestQuery } = productApi
+export const {
+  useFetchProductsQuery,
+  useFetchTestQuery,
+  useFetchSingleProductQuery,
+} = productApi
 export { productApi }

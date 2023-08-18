@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
-import axios from 'axios'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import { connect, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { addProductToCart } from '../../store/slices/cartSlice'
+import { useFetchSingleProductQuery } from '../../store'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const SingleProduct = ({ cart, addToCart }) => {
+const SingleProduct = () => {
   const dispatch = useDispatch()
   const { code } = useParams()
   const navigate = useNavigate()
@@ -22,45 +22,42 @@ const SingleProduct = ({ cart, addToCart }) => {
   const [product, setProduct] = useState({})
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get(
-        `http://localhost:3002/api/v1/products/${code}`
-      )
 
-      setProduct(data.data.product)
-      setOtherColors(() => {
-        return data.data.product.otherColors.map((color) => {
-          return {
-            color,
-            class: `bg-${color}-500`,
-          }
-        })
-      })
-      const constructBreadcrumbs = (product) => {
-        return [
-          { id: 1, name: product.gender },
-          { id: 2, name: product.category },
-        ]
-      }
-      setBreadcrumbs(constructBreadcrumbs(data.data.product))
-
-      setImages(data.data.product.images)
-    }
-    fetchData()
-  }, [code])
-
-  const onClick = (color) => {
-    const code = product.name.toLocaleLowerCase().replace(/\s/g, '-')
-    navigate(`/products/${code}-${color}`)
-  }
+  const { data, error } = useFetchSingleProductQuery(code)
 
   const onAddToCartClick = (e) => {
     e.preventDefault()
 
-    product.nameAndSize = product.code + selectedSize
+    product.nameAndSize = product?.code + selectedSize
     dispatch(addProductToCart(product))
   }
+
+  useEffect(() => {
+    setProduct(data?.data?.product)
+    setOtherColors(() => {
+      return data?.data?.product?.otherColors.map((color) => {
+        return {
+          color,
+          class: `bg-${color}-500`,
+        }
+      })
+    })
+    const constructBreadcrumbs = (product) => {
+      return [
+        { id: 1, name: product?.gender },
+        { id: 2, name: product?.category },
+      ]
+    }
+    setBreadcrumbs(constructBreadcrumbs(data?.data?.product))
+
+    setImages(data?.data?.product?.images)
+  }, [data])
+
+  const onClick = (color) => {
+    const code = product?.name?.toLocaleLowerCase().replace(/\s/g, '-')
+    navigate(`/products/${code}-${color}`)
+  }
+
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -105,31 +102,31 @@ const SingleProduct = ({ cart, addToCart }) => {
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
             <img
-              src={images[0]}
-              alt={images[0]}
+              src={images?.[0]}
+              alt={images?.[0]}
               className="h-full w-full object-cover object-center"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
               <img
-                src={images[1]}
-                alt={images[1]}
+                src={images?.[1]}
+                alt={images?.[1]}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
               <img
-                src={images[2]}
-                alt={images[2]}
+                src={images?.[2]}
+                alt={images?.[2]}
                 className="h-full w-full object-cover object-center"
               />
             </div>
           </div>
           <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
             <img
-              src={images[3]}
-              alt={images[3]}
+              src={images?.[3]}
+              alt={images?.[3]}
               className="h-full w-full object-cover object-center"
             />
           </div>
@@ -167,11 +164,11 @@ const SingleProduct = ({ cart, addToCart }) => {
                     Choose a color{' '}
                   </RadioGroup.Label>
                   <div className="flex items-center space-x-3">
-                    {otherColors.map((col) => (
+                    {otherColors?.map((col) => (
                       <RadioGroup.Option
+                        style={{ backgroundColor: col?.color }}
                         onClick={() => onClick(col?.color)}
                         key={col?.color}
-                        value={col?.color}
                         className={({ active, checked }) =>
                           classNames(
                             `ring-gray-400`,
@@ -220,7 +217,7 @@ const SingleProduct = ({ cart, addToCart }) => {
                     Choose a size{' '}
                   </RadioGroup.Label>
                   <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                    {product.sizes?.map((el) => (
+                    {product?.sizes?.map((el) => (
                       <RadioGroup.Option
                         key={el?.size}
                         value={el?.size}
@@ -301,7 +298,9 @@ const SingleProduct = ({ cart, addToCart }) => {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+                <p className="text-base text-gray-900">
+                  {product?.description}
+                </p>
               </div>
             </div>
 
