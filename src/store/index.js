@@ -14,6 +14,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
+    //singleProduct: productApi.reducer,
     auth: authSlice.reducer,
     queryParam: queryParamSlice.reducer,
     cartItems: cartSlice.reducer,
@@ -33,4 +34,8 @@ setupListeners(store.dispatch)
 
 export { useGetOrdersQuery, useAddOrderMutation } from './apis/orderServiceApi'
 export { useSignUpMutation, useSignInMutation } from './apis/userApi'
-export { useFetchProductsQuery, useFetchTestQuery } from './apis/productApi'
+export {
+  useFetchProductsQuery,
+  useFetchTestQuery,
+  useFetchSingleProductQuery,
+} from './apis/productApi'
