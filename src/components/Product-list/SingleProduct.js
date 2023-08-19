@@ -28,8 +28,12 @@ const SingleProduct = () => {
   const onAddToCartClick = (e) => {
     e.preventDefault()
 
-    product.nameAndSize = product?.code + selectedSize
-    dispatch(addProductToCart(product))
+    dispatch(
+      addProductToCart({
+        ...product,
+        size: selectedSize,
+      })
+    )
   }
 
   useEffect(() => {

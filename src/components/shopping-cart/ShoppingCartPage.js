@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { editCartItem, removeCartItem } from '../../store/slices/cartSlice'
 
@@ -13,7 +13,7 @@ const ShoppingCartPage = () => {
       .map((item) => item.price * item.quantity)
       .reduce((prev, crt) => prev + crt, 0) ?? 0
   )
-  const navigation = useNavigate()
+  const navigate = useNavigate()
 
   const onQuantityChange = (product, quantity) => {
     dispatch(editCartItem({ product, quantity: +quantity }))
@@ -28,6 +28,10 @@ const ShoppingCartPage = () => {
 
   const deleteProductFromCart = (item) => {
     dispatch(removeCartItem(item))
+  }
+
+  const onCheckoutClick = () => {
+    navigate('/checkout', { state: { total } })
   }
   return (
     <div className="mx-16 text-center mb-40 px-2 pt-16">
@@ -60,7 +64,7 @@ const ShoppingCartPage = () => {
                 <tr key={item.nameAndSize} className="font-serif">
                   <td className="border border-slate-300 rounded-lg text-slate-500">
                     <img
-                      onClick={(e) => navigation(`/products/${item.code}`)}
+                      onClick={(e) => navigate(`/products/${item.code}`)}
                       className="w-28 h-28 mx-auto cursor-pointer scale-75 md:scale-100"
                       src={item.displayImage}
                     />
@@ -112,7 +116,7 @@ const ShoppingCartPage = () => {
             <h1 className="font-sherif m-2 p-6 font-bold text-2xl">{total}$</h1>
           </div>
           <button
-            onClick={() => navigation('/checkout')}
+            onClick={() => onCheckoutClick()}
             className="text-sherif p-2 bg-blue-600 text-white hover:bg-blue-400 duration-200"
           >
             To Checkout
