@@ -5,7 +5,8 @@ const cartSlice = createSlice({
   initialState: [],
   reducers: {
     addProductToCart: (state, action) => {
-      const { nameAndSize, price } = action.payload
+      const { code, price, displayImage, name, size } = action.payload
+      const nameAndSize = code + size
 
       if (state.find((el) => el.nameAndSize === nameAndSize)) {
         return state.map((item) => {
@@ -20,13 +21,14 @@ const cartSlice = createSlice({
           }
         })
       } else {
-        console.log({
-          ...action.payload,
-        })
         return [
           ...state,
           {
-            ...action.payload,
+            nameAndSize,
+            price,
+            displayImage,
+            name,
+            size,
             quantity: 1,
             totalPrice: price,
           },

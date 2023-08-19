@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { connect } from 'react-redux'
-import { postOrder } from '../../actions'
+import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router'
 import { useAddOrderMutation } from '../../store'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-const CheckoutPage = ({ cart, postOrder }) => {
+const CheckoutPage = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [address, setAddress] = useState('')
@@ -16,17 +16,15 @@ const CheckoutPage = ({ cart, postOrder }) => {
   const [email, setEmail] = useState('')
   const [payMethod, setPaymethod] = useState('')
   const [deliveryOption, setDeliveryOption] = useState('')
-  const [total, setTotal] = useState(
-    cart
-      .map((item) => item.price * item.quantity)
-      .reduce((prev, crt) => prev + crt, 0) ?? 0
-  )
+
+  const cart = useSelector((state) => state.cartItems)
+
+  const location = useLocation()
+  const dataReceived = location.state
+
+  const [total, setTotal] = useState(dataReceived.total)
 
   const [addOrder, results] = useAddOrderMutation()
-  const initalCost =
-    cart
-      .map((item) => item.price * item.quantity)
-      .reduce((prev, crt) => prev + crt, 0) ?? 0
 
   const onDeliveryChange = (option) => {
     setDeliveryOption(option)
@@ -34,7 +32,7 @@ const CheckoutPage = ({ cart, postOrder }) => {
     if (option === 'fastCourier') {
       additionalCost = 15
     }
-    setTotal((total) => initalCost + additionalCost)
+    setTotal((total) => dataReceived.total + additionalCost)
   }
 
   const onSubmit = (e) => {
@@ -255,8 +253,4 @@ const CheckoutPage = ({ cart, postOrder }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return { cart: state.cartProducts }
-}
-
-export default connect(mapStateToProps, { postOrder })(CheckoutPage)
+export default CheckoutPage
