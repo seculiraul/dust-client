@@ -6,25 +6,14 @@ import { editCartItem, removeCartItem } from '../../store/slices/cartSlice'
 const ShoppingCartPage = () => {
   const dispatch = useDispatch()
 
-  const items = useSelector((state) => state.cartItems)
+  const cartDetails = useSelector((state) => state.cartDetails)
+  const { items, totalCart: total } = cartDetails
 
-  const [total, setTotal] = useState(
-    items
-      .map((item) => item.price * item.quantity)
-      .reduce((prev, crt) => prev + crt, 0) ?? 0
-  )
   const navigate = useNavigate()
 
   const onQuantityChange = (product, quantity) => {
     dispatch(editCartItem({ product, quantity: +quantity }))
   }
-  const updateTotal = useEffect(() => {
-    setTotal(
-      items
-        .map((item) => item.price * item.quantity)
-        .reduce((prev, crt) => prev + crt, 0) ?? 0
-    )
-  }, [items])
 
   const deleteProductFromCart = (item) => {
     dispatch(removeCartItem(item))

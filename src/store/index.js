@@ -17,7 +17,7 @@ export const store = configureStore({
     //singleProduct: productApi.reducer,
     auth: authSlice.reducer,
     queryParam: queryParamSlice.reducer,
-    cartItems: cartSlice.reducer,
+    cartDetails: cartSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
