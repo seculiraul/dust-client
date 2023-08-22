@@ -7,22 +7,9 @@ const orderServiceApi = createApi({
   endpoints(builder) {
     return {
       addOrder: builder.mutation({
-        query: (products, transportCost, info) => {
-          const order = {
-            products: products.map((prod) => {
-              return {
-                productId: prod.id,
-                quantity: prod.quantity,
-              }
-            }),
-            total:
-              products
-                .map((product) => product.price * product.quantity)
-                .reduce((prev, crt) => prev + crt, 0) + transportCost,
-            ...info,
-          }
+        query: (order) => {
           return {
-            url: '/api/v1/orders/user/current',
+            url: '/api/v1/orders',
             method: 'POST',
             body: order,
           }
