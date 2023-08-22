@@ -12,7 +12,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProductToCart: (state, action) => {
-      const { code, price, displayImage, name, size } = action.payload
+      const { _id, code, price, displayImage, name, size } = action.payload
       const nameAndSize = code + size
 
       if (state.items.find((el) => el.nameAndSize === nameAndSize)) {
@@ -36,6 +36,7 @@ const cartSlice = createSlice({
           items: [
             ...state.items,
             {
+              _id,
               nameAndSize,
               price,
               displayImage,
