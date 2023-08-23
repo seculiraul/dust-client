@@ -25,11 +25,6 @@ const Header2 = () => {
 
   const renderSignInButtons = currentUser.token ? (
     <div className="flex flex-row space-x-2">
-      <Sort
-        className={'text-black'}
-        classNames={classNames}
-        sortOptions={sortOptions}
-      />
       <Link
         to={'/home'}
         className="hidden md:block m-2 text-sm p-2 px-4 bg-gray-200 text-black rounded hover:bg-gray-400 duration-200"
@@ -83,7 +78,9 @@ const Header2 = () => {
           onClick={onCartClick}
           className="h-6 w-6 flex-shrink-0 md:mx-4 cursor-pointer"
         />
-        <button onClick={() => console.log(currentUser)}>sddsa</button>
+        <button hidden={!currentUser?.user} onClick={() => navigate('/user')}>
+          {currentUser?.user}
+        </button>
         {renderSignInButtons}
       </div>
     </div>
