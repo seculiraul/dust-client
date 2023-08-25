@@ -7,7 +7,7 @@ import ShoppingCartPage from './components/shopping-cart/ShoppingCartPage'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import Test from './components/Test'
-import AccountDetails from './components/user-dashboard/AccountDetails'
+import AccountDetails from './components/user-dashboard/account-details/AccountDetails'
 import Dashboard from './components/user-dashboard/Dashboard'
 import Orders from './components/user-dashboard/orders/Orders'
 

@@ -1,15 +1,18 @@
 import { useState } from 'react'
+import { useGetUserDetailsQuery } from '../../../store/apis/userApi'
 
 const AccountDetails = () => {
   const [editMode, setEditMode] = useState(false)
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [region, setRegion] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+  const { data, isSuccess } = useGetUserDetailsQuery()
+
+  const [firstName, setFirstName] = useState(data?.data?.firstName)
+  const [lastName, setLastName] = useState(data?.data?.lastName)
+  const [address, setAddress] = useState(data?.data?.address)
+  const [city, setCity] = useState(data?.data?.city)
+  const [region, setRegion] = useState(data?.data?.region)
+  const [email, setEmail] = useState(data?.data?.email)
+  const [phone, setPhone] = useState(data?.data?.phone)
 
   const onEditClick = () => {
     setEditMode(() => !editMode)
@@ -66,7 +69,7 @@ const AccountDetails = () => {
     )
   }
 
-  return (
+  return { isSuccess } ? (
     <div>
       <div className="w-full flex shrink flex-col space-y-2 m-2 p-2">
         <div className=" w-full flex flex-row items-stretch justify-between space-x-2">
@@ -151,6 +154,8 @@ const AccountDetails = () => {
       </div>
       {renderButtons()}
     </div>
+  ) : (
+    <>Loading</>
   )
 }
 export default AccountDetails
