@@ -28,16 +28,31 @@ const userApi = createApi({
       },
     }),
     getUserDetails: builder.query({
-      query: (data) => {
+      query: () => {
         return {
           url: 'api/auth/details',
           method: 'GET',
         }
       },
+      providesTags: ['UserDetails'],
+    }),
+    updateUserDetails: builder.mutation({
+      query: (userDetails) => {
+        return {
+          url: 'api/auth/details',
+          method: 'PATCH',
+          body: userDetails,
+        }
+      },
+      invalidatesTags: ['UserDetails'],
     }),
   }),
 })
 
-export const { useSignInMutation, useSignUpMutation, useGetUserDetailsQuery } =
-  userApi
+export const {
+  useSignInMutation,
+  useSignUpMutation,
+  useGetUserDetailsQuery,
+  useUpdateUserDetailsMutation,
+} = userApi
 export { userApi }
