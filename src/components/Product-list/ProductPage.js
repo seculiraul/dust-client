@@ -1,30 +1,45 @@
-import { connect, useSelector } from 'react-redux'
-import { fetchProducts } from '../../actions'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import SelectionTable from '../shared/SelectionTable'
-import { useSearchParams } from 'react-router-dom'
 import { useFetchProductsQuery } from '../../store'
-import axios from 'axios'
 
 const { default: ProductList } = require('./ProductList')
 
 const ProductPage = () => {
   const [query, setQuery] = useState({})
-
-  const queryParam = (query) => {
-    const str = query.toString()?.split('=')
-    return {
-      [str[0]]: str[1],
-    }
-  }
-  const { data, isError, isLoading, isSuccess } = useFetchProductsQuery(query)
-
-  const handleOptions = (param) => {
-    console.log('click in the child', param)
-  }
+  const { data, isSuccess } = useFetchProductsQuery(query)
 
   const onFilterClick = (queryParam) => {
     setQuery(queryParam)
+  }
+
+  const transformDataToOptions = (option) => {
+    return [
+      ...new Set(data?.data?.products?.map((prod) => prod?.[option])),
+    ].map((opt) => {
+      return {
+        value: opt,
+        label: `${opt?.charAt(0).toUpperCase()}${opt.slice(1)}`,
+        checked: false,
+      }
+    })
+  }
+
+  const transformSIzes = (productsArray) => {
+    const uniqueSizesSet = new Set()
+
+    productsArray?.forEach((product) => {
+      product?.sizes?.forEach((sizeObj) => {
+        uniqueSizesSet.add(sizeObj.size)
+      })
+    })
+
+    return Array.from(uniqueSizesSet).map((size) => {
+      return {
+        value: size,
+        label: size.toUpperCase(),
+        checked: false,
+      }
+    })
   }
 
   const filterData = {
@@ -33,37 +48,17 @@ const ProductPage = () => {
       {
         id: 'color',
         name: 'Color',
-        options: [
-          { value: 'white', label: 'White', checked: false },
-          { value: 'beige', label: 'Beige', checked: false },
-          { value: 'blue', label: 'Blue', checked: true },
-          { value: 'brown', label: 'Brown', checked: false },
-          { value: 'green', label: 'Green', checked: false },
-          { value: 'purple', label: 'Purple', checked: false },
-        ],
+        options: transformDataToOptions('color'),
       },
       {
-        id: 'category',
-        name: 'Category',
-        options: [
-          { value: 'new-arrivals', label: 'New Arrivals', checked: false },
-          { value: 'sale', label: 'Sale', checked: false },
-          { value: 'travel', label: 'Travel', checked: true },
-          { value: 'organization', label: 'Organization', checked: false },
-          { value: 'accessories', label: 'Accessories', checked: false },
-        ],
+        id: 'gender',
+        name: 'Gender',
+        options: transformDataToOptions('gender'),
       },
       {
         id: 'size',
         name: 'Size',
-        options: [
-          { value: '2l', label: '2L', checked: false },
-          { value: '6l', label: '6L', checked: false },
-          { value: '12l', label: '12L', checked: false },
-          { value: '18l', label: '18L', checked: false },
-          { value: '20l', label: '20L', checked: false },
-          { value: '40l', label: '40L', checked: false },
-        ],
+        options: transformSIzes(data?.data?.products),
       },
     ],
     sortOptions: [
@@ -78,11 +73,7 @@ const ProductPage = () => {
   }
 
   const render = isSuccess ? (
-    <SelectionTable
-      tableData={filterData}
-      options={handleOptions}
-      onFilterClick={onFilterClick}
-    >
+    <SelectionTable tableData={filterData} onFilterClick={onFilterClick}>
       <ProductList products={data?.data?.products} />
     </SelectionTable>
   ) : (
