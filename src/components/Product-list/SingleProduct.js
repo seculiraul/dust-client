@@ -23,7 +23,7 @@ const SingleProduct = () => {
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
 
-  const { data, error } = useFetchSingleProductQuery(code)
+  const { data } = useFetchSingleProductQuery(code)
 
   const onAddToCartClick = (e) => {
     e.preventDefault()

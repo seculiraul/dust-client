@@ -1,14 +1,6 @@
 import { ShoppingBagIcon } from '@heroicons/react/24/outline'
-import axios from 'axios'
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { useSignInMutation } from '../store'
-import Sort from './shared/Sort'
-import Test from './Test'
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 const Header2 = () => {
   const navigate = useNavigate()
@@ -17,11 +9,11 @@ const Header2 = () => {
   }
 
   const currentUser = useSelector((state) => state.auth)
-  const sortOptions = [
-    { name: 'My Profile', href: '#', current: true },
-    { name: 'My Orders', href: '#', current: false },
-    { name: 'Logout', href: '#', current: false },
-  ]
+  // const sortOptions = [
+  //   { name: 'My Profile', href: '#', current: true },
+  //   { name: 'My Orders', href: '#', current: false },
+  //   { name: 'Logout', href: '#', current: false },
+  // ]
 
   const renderSignInButtons = currentUser.token ? (
     <div className="flex flex-row space-x-2">
@@ -78,7 +70,10 @@ const Header2 = () => {
           onClick={onCartClick}
           className="h-6 w-6 flex-shrink-0 md:mx-4 cursor-pointer"
         />
-        <button hidden={!currentUser?.user} onClick={() => navigate('/user')}>
+        <button
+          hidden={!currentUser?.user}
+          onClick={() => navigate('/user/details')}
+        >
           {currentUser?.user}
         </button>
         {renderSignInButtons}
@@ -86,11 +81,4 @@ const Header2 = () => {
     </div>
   )
 }
-
-// const mapStateToProps = (state) => {
-//   return { currentUser: state.currentUser }
-// }
-
-//export default connect(mapStateToProps, {})(Header2)
-
 export default Header2

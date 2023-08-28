@@ -12,6 +12,8 @@ const AccountDetailsComponent = ({
   const [address, setAddress] = useState(details?.address)
   const [city, setCity] = useState(details?.city)
   const [region, setRegion] = useState(details?.region)
+  const [email] = useState(details?.email)
+  const [phone] = useState(details?.phone)
 
   const handleSaveClick = () => {
     onSaveClick({
@@ -143,7 +145,7 @@ const AccountDetailsComponent = ({
           <div className="text-left">
             <label className="block mb-2">Email</label>
             <input
-              value={details?.email}
+              value={email}
               disabled
               className={inputClass('alwaysDisabled')}
               type="text"
@@ -153,7 +155,7 @@ const AccountDetailsComponent = ({
           <div className="text-left">
             <label className="block mb-2">Phone</label>
             <input
-              value={details?.phone}
+              value={phone}
               disabled
               className={inputClass('alwaysDisabled')}
               type="text"
