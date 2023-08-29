@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router'
 import CheckoutPage from './components/checkout/CheckoutPage'
 import Header2 from './components/Header2'
+import NotFound from './components/not-found/NotFound'
 import ProductPage from './components/Product-list/ProductPage'
 import SingleProduct from './components/Product-list/SingleProduct'
 import ShoppingCartPage from './components/shopping-cart/ShoppingCartPage'
@@ -27,7 +28,7 @@ const App = () => {
           <Route path="details" element={<AccountDetails />} />
           <Route path="orders" element={<Orders />} />
         </Route>
-        <Route path="*" element={<SignIn />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   )
