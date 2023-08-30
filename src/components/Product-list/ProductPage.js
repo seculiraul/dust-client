@@ -80,7 +80,7 @@ const ProductPage = () => {
     <div>Req not success</div>
   )
 
-  return <div className="container">{render}</div>
+  return <div>{render}</div>
 }
 
 export default ProductPage

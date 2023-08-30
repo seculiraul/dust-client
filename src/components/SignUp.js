@@ -1,15 +1,15 @@
-import { LockClosedIcon } from "@heroicons/react/20/solid"
-import { signUp } from "../actions"
-import { useState } from "react"
-import { connect } from "react-redux"
-import { Link } from "react-router-dom"
+import { LockClosedIcon } from '@heroicons/react/20/solid'
+import { signUp } from '../actions'
+import { useState } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const SignUp = ({ user, signUp }) => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [passwordConfirmed, setConfirmPassword] = useState("")
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirmed, setConfirmPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -17,15 +17,15 @@ const SignUp = ({ user, signUp }) => {
     console.log(email, password, passwordConfirmed, firstName, lastName)
     signUp({ email, password, passwordConfirmed, firstName, lastName })
 
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
-    setFirstName("")
-    setLastName("")
+    setEmail('')
+    setPassword('')
+    setConfirmPassword('')
+    setFirstName('')
+    setLastName('')
   }
 
   return (
-    <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -114,7 +114,7 @@ const SignUp = ({ user, signUp }) => {
           </div>
         </form>
         <p className="mt-2 text-center text-sm text-blue-600">
-          <Link to={"/"}>Already have an account? Sign In HERE</Link>
+          <Link to={'/'}>Already have an account? Sign In HERE</Link>
         </p>
       </div>
     </div>
