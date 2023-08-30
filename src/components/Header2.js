@@ -42,7 +42,7 @@ const Header2 = () => {
   )
 
   return (
-    <div className="flex flex-row w-full p-4 justify-between ">
+    <div className="flex flex-row w-full p-4 justify-between">
       <div className="flex flex-row space-x-2 items-center md:ml-4 md:p-2 md:space-x-4 duration-200">
         <Link
           to={'/home'}

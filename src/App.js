@@ -14,7 +14,7 @@ import Orders from './components/user-dashboard/orders/Orders'
 
 const App = () => {
   return (
-    <div className="">
+    <div className="flex flex-col h-screen">
       <Header2 />
       <Routes>
         <Route path="/signIn" element={<SignIn />} />
