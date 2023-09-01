@@ -10,8 +10,6 @@ import {
 // comunice cu acest component si sa ii transmita cand a fost click uit si sa ii trimita numele
 
 const Filter = ({ section, extended, ...rest }) => {
-  //const { addToQuery, removeFromQuery, queryObject } = useQueryParam()
-
   const dispatch = useDispatch()
   const queryParam = useSelector((state) => state.queryParam)
   const handleClick = (checked, name, value) => {
