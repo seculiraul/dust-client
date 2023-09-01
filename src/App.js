@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router'
 import CheckoutPage from './components/checkout/CheckoutPage'
 import Header2 from './components/Header2'
+import HomePage from './components/home/HomePage'
 import NotFound from './components/not-found/NotFound'
 import ProductPage from './components/Product-list/ProductPage'
 import SingleProduct from './components/Product-list/SingleProduct'
@@ -17,6 +18,7 @@ const App = () => {
     <div className="flex flex-col h-screen">
       <Header2 />
       <Routes>
+        <Route path="/home" element={<HomePage />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/products" element={<ProductPage />} />
