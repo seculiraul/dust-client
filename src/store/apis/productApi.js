@@ -18,14 +18,11 @@ const productApi = createApi({
         }
       },
     }),
-    fetchTest: builder.query({
+    fetchRecomandedProducts: builder.query({
       query: (param) => {
         return {
-          url: '/api/v1/test',
+          url: '/api/v1/recomanded',
           method: 'GET',
-          params: {
-            param,
-          },
         }
       },
     }),
@@ -42,7 +39,7 @@ const productApi = createApi({
 
 export const {
   useFetchProductsQuery,
-  useFetchTestQuery,
+  useFetchRecomandedProductsQuery,
   useFetchSingleProductQuery,
 } = productApi
 export { productApi }
