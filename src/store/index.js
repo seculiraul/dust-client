@@ -33,9 +33,14 @@ export const store = configureStore({
 setupListeners(store.dispatch)
 
 export { useGetOrdersQuery, useAddOrderMutation } from './apis/orderServiceApi'
-export { useSignUpMutation, useSignInMutation } from './apis/userApi'
+export {
+  useSignUpMutation,
+  useSignInMutation,
+  useGetUserDetailsQuery,
+  useUpdateUserDetailsMutation,
+} from './apis/userApi'
 export {
   useFetchProductsQuery,
-  useFetchTestQuery,
+  useFetchRecomandedProductsQuery,
   useFetchSingleProductQuery,
 } from './apis/productApi'

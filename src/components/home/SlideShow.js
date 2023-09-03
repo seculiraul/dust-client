@@ -1,23 +1,21 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 import 'swiper/css'
-const SlideShow = ({ slides }) => {
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+
+const SlideShow = ({ children }) => {
   return (
     <Swiper
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      spaceBetween={50}
+      slidesPerView={1}
+      autoplay={{ delay: 3000 }}
       navigation
       pagination={{ clickable: true }}
-      autoplay={{ delay: 3000 }}
-      slidesPerView={1}
-      spaceBetween={2}
     >
-      {slides.map((slide, index) => (
-        <SwiperSlide key={index}>
-          <img
-            className="w-full"
-            src={slide.image}
-            alt={`Slide ${index + 1}`}
-          />
-        </SwiperSlide>
-      ))}
+      {children}
     </Swiper>
   )
 }
