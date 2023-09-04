@@ -2,7 +2,6 @@ import image from '../../all-project-assets/image-gallery/images/fallCollection.
 import { useFetchRecomandedProductsQuery } from '../../store'
 import ImageSlade from './ImageSlide'
 import RecomandedProductsSlide from './RecomandedProductsSlide'
-import SlideShow from './SlideShow'
 const HomePage = () => {
   const slides = [{ image }, { image }, { image }]
 
@@ -20,7 +19,7 @@ const HomePage = () => {
           <div>
             <h2>Hot products</h2>
           </div>
-          <div className="w-full mx-auto bg-zinc-200 h-20">
+          <div className="w-full mx-auto">
             <RecomandedProductsSlide
               recomandedProducts={data?.data?.bestSellings}
             />

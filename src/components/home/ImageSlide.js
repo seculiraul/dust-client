@@ -3,7 +3,7 @@ const { default: SlideShow } = require('./SlideShow')
 
 const ImageSlade = ({ slides }) => {
   return (
-    <SlideShow>
+    <SlideShow slidesPerView={1} navigation pagination>
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
           <img className="w-full" src={slide.image} alt={slide.image} />
