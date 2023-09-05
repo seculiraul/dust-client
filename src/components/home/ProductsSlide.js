@@ -2,7 +2,7 @@ import { SwiperSlide } from 'swiper/react'
 const { default: ProductCard } = require('../shared/PtroductCard')
 const { default: SlideShow } = require('./SlideShow')
 
-const RecomandedProductsSlide = ({ recomandedProducts }) => {
+const ProductsSlide = ({ recomandedProducts }) => {
   return (
     <SlideShow slidesPerView={3} navigation pagination={false}>
       {recomandedProducts?.map((product, index) => (
@@ -14,4 +14,4 @@ const RecomandedProductsSlide = ({ recomandedProducts }) => {
   )
 }
 
-export default RecomandedProductsSlide
+export default ProductsSlide
