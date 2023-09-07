@@ -12,6 +12,7 @@ import Test from './components/Test'
 import AccountDetails from './components/user-dashboard/account-details/AccountDetails'
 import Dashboard from './components/user-dashboard/Dashboard'
 import Orders from './components/user-dashboard/orders/Orders'
+import ProductCreation from './features/product-creation/ProductCreation'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/products/:code" element={<SingleProduct />} />
+        <Route path="creation" element={<ProductCreation />} />
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/test" element={<Test />} />
         <Route path="/checkout" element={<CheckoutPage />} />
