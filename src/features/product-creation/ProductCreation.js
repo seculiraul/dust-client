@@ -6,6 +6,7 @@ const ProductCreation = () => {
   const submitNewProduct = (newProduct) => {
     createProduct(newProduct)
   }
+
   return <ProductCreationForm submitNewProduct={submitNewProduct} />
 }
 
