@@ -34,6 +34,15 @@ const productApi = createApi({
         }
       },
     }),
+    createProduct: builder.mutation({
+      query: (product) => {
+        return {
+          url: '/api/v1/products',
+          method: 'POST',
+          body: product,
+        }
+      },
+    }),
   }),
 })
 
@@ -41,5 +50,6 @@ export const {
   useFetchProductsQuery,
   useFetchRecomandedProductsQuery,
   useFetchSingleProductQuery,
+  useCreateProductMutation,
 } = productApi
 export { productApi }

@@ -18,7 +18,7 @@ const ProductPage = () => {
     ].map((opt) => {
       return {
         value: opt,
-        label: `${opt?.charAt(0).toUpperCase()}${opt.slice(1)}`,
+        label: `${opt?.charAt(0)?.toUpperCase()}${opt.slice(1)}`,
         checked: false,
       }
     })
@@ -36,7 +36,7 @@ const ProductPage = () => {
     return Array.from(uniqueSizesSet).map((size) => {
       return {
         value: size,
-        label: size.toUpperCase(),
+        label: size?.toUpperCase(),
         checked: false,
       }
     })

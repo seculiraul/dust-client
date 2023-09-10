@@ -43,4 +43,5 @@ export {
   useFetchProductsQuery,
   useFetchRecomandedProductsQuery,
   useFetchSingleProductQuery,
+  useCreateProductMutation,
 } from './apis/productApi'
