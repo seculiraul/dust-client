@@ -16,20 +16,14 @@ const ProductCreationForm = ({ submitNewProduct }) => {
   const [description, setDescription] = useState('')
   const [details, setDetails] = useState('')
   const [specs, setSpecs] = useState([])
-  const [sizes, setSizes] = useState({ S: 0, M: 0, L: 0, XL: 0 })
+  const [quantityS, setQuantityS] = useState('')
+  const [quantityM, setQuantityM] = useState('')
+  const [quantityL, setQuantityL] = useState('')
+  const [quantityXL, setQuantityXL] = useState('')
 
-  const updateSizes = (value, wantedSize) => {
-    setSizes((sizes) => {
-      return {
-        ...sizes,
-        [wantedSize]: value,
-      }
-    })
-  }
   const sumbitProduct = (e) => {
     e.preventDefault()
 
-    const { S, M, L, XL } = sizes
     const newProduct = {
       name,
       category,
@@ -44,7 +38,12 @@ const ProductCreationForm = ({ submitNewProduct }) => {
       description,
       details,
       specs: images.split('\n'),
-      sizes: { S, M, L, XL },
+      sizes: [
+        { size: 'S', quantity: +quantityS },
+        { size: 'M', quantity: +quantityM },
+        { size: 'L', quantity: +quantityL },
+        { size: 'XL', quantity: +quantityXL },
+      ],
     }
 
     submitNewProduct(newProduct)
@@ -171,32 +170,32 @@ const ProductCreationForm = ({ submitNewProduct }) => {
               <label className="p-2 mx-auto">S</label>
               <TextInput
                 placeholder="Enter Numer"
-                value={sizes.S}
-                onChange={(e) => updateSizes(e.target.value, 'S')}
+                value={quantityS}
+                onChange={(e) => setQuantityS(e.target.value)}
               />
             </div>
             <div className="flex flex-row">
               <label className="p-2 mx-auto">M</label>
               <TextInput
                 placeholder="Enter Numer"
-                value={sizes.M}
-                onChange={(e) => updateSizes(e.target.value, 'M')}
+                value={quantityM}
+                onChange={(e) => setQuantityM(e.target.value)}
               />
             </div>
             <div className="flex flex-row">
               <label className="p-2 mx-auto">L</label>
               <TextInput
                 placeholder="Enter Numer"
-                value={sizes.L}
-                onChange={(e) => updateSizes(e.target.value, 'L')}
+                value={quantityL}
+                onChange={(e) => setQuantityL(e.target.value)}
               />
             </div>
             <div className="flex flex-row">
               <label className="p-2 mx-auto">XL</label>
               <TextInput
                 placeholder="Enter Numer"
-                value={sizes.XL}
-                onChange={(e) => updateSizes(e.target.value, 'XL')}
+                value={quantityXL}
+                onChange={(e) => setQuantityXL(e.target.value)}
               />
             </div>
           </div>
