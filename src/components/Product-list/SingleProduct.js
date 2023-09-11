@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import { addProductToCart } from '../../store/slices/cartSlice'
 import { useFetchSingleProductQuery } from '../../store'
+import ImageSlider from '../shared/ImageSlider'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -103,37 +104,8 @@ const SingleProduct = () => {
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
-            <img
-              src={images?.[0]}
-              alt={images?.[0]}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={images?.[1]}
-                alt={images?.[1]}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={images?.[2]}
-                alt={images?.[2]}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
-          <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
-            <img
-              src={images?.[3]}
-              alt={images?.[3]}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
+        <div className="h-[50vh] w-38 mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
+          <ImageSlider slides={images} />
         </div>
 
         {/* Product info */}
@@ -153,51 +125,53 @@ const SingleProduct = () => {
 
             <form className="mt-10">
               {/* Colors */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900">
-                  Other Colors
-                </h3>
+              {product?.otherColors?.length > 0 ? (
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900">
+                    Other Colors
+                  </h3>
 
-                <RadioGroup
-                  value={selectedColor}
-                  onChange={setSelectedColor}
-                  className="mt-4"
-                >
-                  <RadioGroup.Label className="sr-only">
-                    {' '}
-                    Choose a color{' '}
-                  </RadioGroup.Label>
-                  <div className="flex items-center space-x-3">
-                    {otherColors?.map((col) => (
-                      <RadioGroup.Option
-                        style={{ backgroundColor: col?.color }}
-                        onClick={() => onClick(col?.color)}
-                        key={col?.color}
-                        className={({ active, checked }) =>
-                          classNames(
-                            `ring-gray-400`,
-                            active && checked ? 'ring ring-offset-1' : '',
-                            !active && checked ? 'ring-2' : '',
-                            '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                          )
-                        }
-                      >
-                        <RadioGroup.Label as="span" className="sr-only">
-                          {' '}
-                          {col.color}{' '}
-                        </RadioGroup.Label>
-                        <span
-                          aria-hidden="true"
-                          className={classNames(
-                            col.class,
-                            'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                          )}
-                        />
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
-              </div>
+                  <RadioGroup
+                    value={selectedColor}
+                    onChange={setSelectedColor}
+                    className="mt-4"
+                  >
+                    <RadioGroup.Label className="sr-only">
+                      {' '}
+                      Choose a color{' '}
+                    </RadioGroup.Label>
+                    <div className="flex items-center space-x-3">
+                      {otherColors?.map((col) => (
+                        <RadioGroup.Option
+                          style={{ backgroundColor: col?.color }}
+                          onClick={() => onClick(col?.color)}
+                          key={col?.color}
+                          className={({ active, checked }) =>
+                            classNames(
+                              `ring-gray-400`,
+                              active && checked ? 'ring ring-offset-1' : '',
+                              !active && checked ? 'ring-2' : '',
+                              '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
+                            )
+                          }
+                        >
+                          <RadioGroup.Label as="span" className="sr-only">
+                            {' '}
+                            {col.color}{' '}
+                          </RadioGroup.Label>
+                          <span
+                            aria-hidden="true"
+                            className={classNames(
+                              col.class,
+                              'h-8 w-8 border border-black border-opacity-10 rounded-full'
+                            )}
+                          />
+                        </RadioGroup.Option>
+                      ))}
+                    </div>
+                  </RadioGroup>
+                </div>
+              ) : null}
 
               {/* Sizes */}
               <div className="mt-10">
