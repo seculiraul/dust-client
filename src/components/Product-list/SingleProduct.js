@@ -104,7 +104,7 @@ const SingleProduct = () => {
         </nav>
 
         {/* Image gallery */}
-        <div className="h-[50vh] w-38 mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="h-[50vh] w-38 mx-auto mt-6 mb-32 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
           <ImageSlider slides={images} />
         </div>
 
@@ -261,8 +261,8 @@ const SingleProduct = () => {
                 onClick={(e) => onAddToCartClick(e)}
                 className={classNames(
                   selectedSize !== ''
-                    ? 'mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-                    : 'mt-10 flex w-full items-center justify-center rounded-md border border-transparent py-3 px-8 text-base font-medium bg-indigo-300 text-white cursor-not-allowed'
+                    ? 'mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 duration-200'
+                    : 'mt-10 flex w-full items-center justify-center rounded-md border border-transparent py-3 px-8 text-base font-medium bg-indigo-300 text-white cursor-not-allowed duration-200'
                 )}
               >
                 Add to cart

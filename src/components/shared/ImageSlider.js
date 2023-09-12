@@ -8,11 +8,13 @@ const ImageSlider = ({ slides }) => {
     position: 'relative',
   }
   const slideStyles = {
+    //    scale: '75%',
     height: '100%',
-    borderRadius: '10px',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundImage: `url(${slides?.[crtIndex]})`,
+    //width: '100%',
+    // borderRadius: '10px',
+    // backgroundPosition: 'center',
+    //backgroundSize: 'cover',
+    // backgroundImage: `url(${slides?.[crtIndex]})`,
   }
 
   const leftArrow = {
@@ -21,7 +23,6 @@ const ImageSlider = ({ slides }) => {
     transform: 'transalte(0, -50%)',
     left: '32px',
     fontSize: '45px',
-    color: '#fff',
     zIndex: 1,
     cursor: 'pointer',
   }
@@ -32,14 +33,8 @@ const ImageSlider = ({ slides }) => {
     transform: 'transalte(0, -50%)',
     right: '32px',
     fontSize: '45px',
-    color: '#fff',
     zIndex: 1,
     cursor: 'pointer',
-  }
-
-  const dotsContainer = {
-    display: 'flex',
-    justifyContent: 'center',
   }
 
   const dotStyles = {
@@ -65,18 +60,25 @@ const ImageSlider = ({ slides }) => {
   }
   return (
     <div style={sliderStyle}>
-      <div style={leftArrow} onClick={goToPrev}>
+      <div className="text-zinc-700" style={leftArrow} onClick={goToPrev}>
         ❰
       </div>
-      <div style={rightArrow} onClick={goToNext}>
+      <div className="text-zinc-700" style={rightArrow} onClick={goToNext}>
         ❱
       </div>
-      <div style={slideStyles}></div>
-      <div style={dotsContainer}>
+      <img
+        className="max-w=[500px] h-full max-h-[60vh] mx-auto"
+        alt={slides?.[crtIndex]}
+        src={slides?.[crtIndex]}
+      />
+      <div className="flex flex-row mx-auto gap-2 p-2 mt-2 mb-4 justify-center">
         {slides?.map((slide, index) => (
-          <div style={dotStyles} onClick={() => goToSlide(index)} key={index}>
-            ●
-          </div>
+          <img
+            className=" h-[10vh] cursor-pointer"
+            onClick={() => goToSlide(index)}
+            key={index}
+            src={slide}
+          />
         ))}
       </div>
     </div>
