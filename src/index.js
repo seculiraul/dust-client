@@ -15,9 +15,11 @@ const root = createRoot(rootElem)
 
 //const store = legacy_createStore(reducers, applyMiddleware(thunk))
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
 )

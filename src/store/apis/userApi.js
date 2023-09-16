@@ -27,6 +27,14 @@ const userApi = createApi({
         }
       },
     }),
+    signOut: builder.mutation({
+      query: () => {
+        return {
+          url: '/api/auth/signout',
+          method: 'GET',
+        }
+      },
+    }),
     getUserDetails: builder.query({
       query: () => {
         return {
@@ -52,6 +60,7 @@ const userApi = createApi({
 export const {
   useSignInMutation,
   useSignUpMutation,
+  useSignOutMutation,
   useGetUserDetailsQuery,
   useUpdateUserDetailsMutation,
 } = userApi
