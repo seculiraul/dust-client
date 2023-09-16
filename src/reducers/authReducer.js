@@ -1,6 +1,6 @@
-import Cookies from "js-cookie"
-import { SIGN_IN, SIGN_UP } from "../actions"
-import jwtDecode from "jwt-decode"
+import Cookies from 'js-cookie'
+import { SIGN_IN, SIGN_UP } from '../actions'
+import jwtDecode from 'jwt-decode'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -16,5 +16,5 @@ export default (state = {}, action) => {
 }
 
 const setCookie = (value) => {
-  Cookies.set("jwt", value)
+  Cookies.set('jwt', value)
 }
