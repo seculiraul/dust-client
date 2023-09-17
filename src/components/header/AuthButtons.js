@@ -17,7 +17,7 @@ const AuthButtons = ({ token, onSingOutClick }) => {
     <>
       <Link
         to={'/signin'}
-        className=" m-2 text-sm p-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 duration-200"
+        className="m-2 text-sm p-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 duration-200"
       >
         Sign in
       </Link>

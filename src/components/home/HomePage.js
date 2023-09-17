@@ -1,5 +1,6 @@
 import image from '../../all-project-assets/image-gallery/images/fallCollection.jpg'
 import { useFetchRecomandedProductsQuery } from '../../store'
+import PrimaryButton from '../shared/buttons/PrimaryButton'
 import ImageSlade from './ImageSlide'
 import ProductsSlide from './ProductsSlide'
 const HomePage = () => {
@@ -33,6 +34,7 @@ const HomePage = () => {
             <ProductsSlide recomandedProducts={data?.data?.newProducts} />
           </div>
         </div>
+        <PrimaryButton>Hellos</PrimaryButton>
       </div>
     </>
   )
