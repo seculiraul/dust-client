@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PrimaryButton from '../../components/shared/buttons/PrimaryButton'
 import TextArea from '../../components/shared/TextArea'
 import TextInput from '../../components/shared/TextInput'
 
@@ -200,12 +201,9 @@ const ProductCreationForm = ({ submitNewProduct }) => {
             </div>
           </div>
         </div>
-        <button
-          className="mx-2 my-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 duration-300"
-          type="submit"
-        >
+        <PrimaryButton extraClasses={'mx-2 my-4'} type={'sumbit'}>
           Create Product
-        </button>
+        </PrimaryButton>
       </form>
     </div>
   )
