@@ -34,7 +34,6 @@ const HomePage = () => {
             <ProductsSlide recomandedProducts={data?.data?.newProducts} />
           </div>
         </div>
-        <PrimaryButton>Hellos</PrimaryButton>
       </div>
     </>
   )
