@@ -1,6 +1,7 @@
 import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import useDecodeToken from '../../hooks/useDecodeToken.js'
 import useSignOut from '../../hooks/useSignOut.js'
 import AuthButtons from './AuthButtons.js'
 import HeaderQuickLinks from './HeaderQuickLinks.js'
@@ -8,7 +9,8 @@ import HeaderQuickLinks from './HeaderQuickLinks.js'
 const Header = () => {
   const navigate = useNavigate()
   const { logOutUser } = useSignOut()
-  const currentUser = useSelector((state) => state.auth)
+  const { user, token } = useSelector((state) => state.auth)
+  //const { token } = useDecodeToken(token)
 
   const onSingOutClick = () => {
     logOutUser()
@@ -22,16 +24,10 @@ const Header = () => {
           onClick={() => navigate('/cart')}
           className="h-6 w-6 flex-shrink-0 md:mx-4 cursor-pointer"
         />
-        <button
-          hidden={!currentUser?.user}
-          onClick={() => navigate('/user/details')}
-        >
-          {currentUser?.user}
+        <button hidden={!user?.name} onClick={() => navigate('/user/details')}>
+          {user?.name}
         </button>
-        <AuthButtons
-          token={currentUser?.token}
-          onSingOutClick={onSingOutClick}
-        />
+        <AuthButtons token={token} onSingOutClick={onSingOutClick} />
       </div>
     </div>
   )
