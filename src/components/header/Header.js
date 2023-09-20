@@ -1,7 +1,6 @@
 import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import useDecodeToken from '../../hooks/useDecodeToken.js'
 import useSignOut from '../../hooks/useSignOut.js'
 import AuthButtons from './AuthButtons.js'
 import HeaderQuickLinks from './HeaderQuickLinks.js'
