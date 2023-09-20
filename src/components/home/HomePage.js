@@ -8,8 +8,6 @@ const HomePage = () => {
 
   const { data, isSuccess } = useFetchRecomandedProductsQuery()
 
-  isSuccess ? console.log(data) : console.log('loading')
-
   return (
     <>
       <div className="flex flex-col allign-center items-center gap-2 mx-auto max-w-[300px] lg:max-w-[1500px] md:max=w-[1200px] sm:max-w-[500px]">

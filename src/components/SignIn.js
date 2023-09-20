@@ -14,13 +14,10 @@ const SignIn = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    console.log(password)
-    // signIn({ email, password })
     try {
       const { data } = await login({ email, password })
       console.log(data)
       dispatch(setCredentials({ ...data }))
-      console.log(data)
       setEmail('')
       setPassword('')
     } catch (err) {
