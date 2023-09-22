@@ -14,6 +14,7 @@ import Orders from './components/user-dashboard/orders/Orders'
 import RequireAuth from './features/navigation/RequireAuth'
 import RequireRole from './features/navigation/RequireRole'
 import ProductCreation from './features/product-creation/ProductCreation'
+import ProductMain from './features/productPage/productMain'
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/products" element={<ProductPage />} />
         <Route path="/products/:code" element={<SingleProduct />} />
         <Route path="/creation" element={<ProductCreation />} />
+        <Route path="/test" element={<ProductMain />} />
 
         {/* specific role routes */}
         <Route element={<RequireRole role={'admin'} />}></Route>
