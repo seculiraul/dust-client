@@ -1,14 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import ProductList from '../../components/Product-list/ProductList'
 import { useFetchProductsQuery } from '../../store'
 import FilterMain from './FilterMain'
 
 const ProductMain = () => {
   const [query, setQuery] = useState({})
+  const [searchParams] = useSearchParams()
   const { data, isSuccess } = useFetchProductsQuery(query)
 
-  const onFilterClick = (queryParam) => {
-    setQuery(queryParam)
+  useEffect(() => {
+    setQuery(() => {
+      const newQuery = transformSearchParamsInQbj()
+      return newQuery
+    })
+  }, [searchParams])
+
+  const transformSearchParamsInQbj = () => {
+    const queryObj = {}
+    for (const [name, value] of searchParams) {
+      queryObj[name] = value
+    }
+    return queryObj
   }
 
   const filterData = {
@@ -26,7 +39,7 @@ const ProductMain = () => {
       {
         id: 'gender',
         name: 'Gender',
-        options: [{ value: 'Male', label: 'Male', checked: false }],
+        options: [{ value: 'Men', label: 'Men', checked: false }],
       },
       {
         id: 'size',

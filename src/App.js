@@ -27,10 +27,9 @@ const App = () => {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/products" element={<ProductPage />} />
+        <Route path="/products" element={<ProductMain />} />
         <Route path="/products/:code" element={<SingleProduct />} />
         <Route path="/creation" element={<ProductCreation />} />
-        <Route path="/test" element={<ProductMain />} />
 
         {/* specific role routes */}
         <Route element={<RequireRole role={'admin'} />}></Route>

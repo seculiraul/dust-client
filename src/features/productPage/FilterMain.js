@@ -10,7 +10,7 @@ const FilterMain = ({ data }) => {
     <FilterInputs
       key={index}
       section={section}
-      extended={true}
+      extended
       {...data?.filterEvents}
     />
   ))
