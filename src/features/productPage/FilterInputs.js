@@ -1,7 +1,17 @@
 import { Disclosure } from '@headlessui/react'
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { useSearchParams } from 'react-router-dom'
+import useFilterInputs from '../../hooks/filter-inputs/useFilterInputs'
 
 const FilterInputs = ({ section, extended, ...rest }) => {
+  // TODO: New component pentru fiecare input apoi trebuie pus un state sa se vada daca e checked sau nu. Componentul va trebui sa
+  // comunice cu acest component si sa ii transmita cand a fost click uit si sa ii trimita numele
+
+  const { addQuery, removeQuery, isCheckboxCheeked } = useFilterInputs()
+  const handleClick = (checked, name, value) => {
+    checked ? addQuery(name, value) : removeQuery(name, value)
+  }
+
   return (
     <Disclosure
       as="div"
@@ -27,10 +37,14 @@ const FilterInputs = ({ section, extended, ...rest }) => {
               {section.options.map((option, optionIdx) => (
                 <div key={option.value} className="flex items-center">
                   <input
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                     id={`filter-mobile-${section.id}-${optionIdx}`}
                     name={`${section.id}[]`}
                     type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    checked={isCheckboxCheeked(section.id, option.value)}
+                    onChange={(e) =>
+                      handleClick(e.target.checked, section.id, option.value)
+                    }
                   />
                   <label
                     htmlFor={`filter-mobile-${section.id}-${optionIdx}`}

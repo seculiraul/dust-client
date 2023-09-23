@@ -8,7 +8,12 @@ const productApi = createApi({
   endpoints: (builder) => ({
     fetchProducts: builder.query({
       query: (options) => {
-        console.log(options)
+        // console.log(options)
+        // const queryObj = {}
+        // for (const [name, value] of options.entries()) {
+        //   queryObj[name] = value
+        // }
+        // console.log(queryObj)
         return {
           url: '/api/v1/products',
           method: 'GET',
