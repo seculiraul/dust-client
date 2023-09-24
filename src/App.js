@@ -3,7 +3,6 @@ import CheckoutPage from './components/checkout/CheckoutPage'
 import Header from './components/header/Header'
 import HomePage from './components/home/HomePage'
 import NotFound from './components/not-found/NotFound'
-import ProductPage from './components/Product-list/ProductPage'
 import SingleProduct from './components/Product-list/SingleProduct'
 import ShoppingCartPage from './components/shopping-cart/ShoppingCartPage'
 import SignIn from './components/SignIn'
@@ -14,35 +13,37 @@ import Orders from './components/user-dashboard/orders/Orders'
 import RequireAuth from './features/navigation/RequireAuth'
 import RequireRole from './features/navigation/RequireRole'
 import ProductCreation from './features/product-creation/ProductCreation'
-import ProductMain from './features/productPage/productMain'
+import ProductMain from './features/productPage/ProductMain'
+import useLinks from './hooks/shared/useLinks'
 
 const App = () => {
+  const { pathnames } = useLinks()
   return (
     <div className="flex flex-col h-screen">
       <Header />
       <Routes>
         {/* public routes */}
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/signUp" element={<SignUp />} />
-        <Route path="/cart" element={<ShoppingCartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/products" element={<ProductMain />} />
-        <Route path="/products/:code" element={<SingleProduct />} />
-        <Route path="/creation" element={<ProductCreation />} />
+        <Route path={pathnames.home} element={<HomePage />} />
+        <Route path={pathnames.signIn} element={<SignIn />} />
+        <Route path={pathnames.signUp} element={<SignUp />} />
+        <Route path={pathnames.cart} element={<ShoppingCartPage />} />
+        <Route path={pathnames.checkout} element={<CheckoutPage />} />
+        <Route path={pathnames.products} element={<ProductMain />} />
+        <Route path={pathnames.singleProduct} element={<SingleProduct />} />
+        <Route path={pathnames.creation} element={<ProductCreation />} />
 
         {/* specific role routes */}
         <Route element={<RequireRole role={'admin'} />}></Route>
 
         {/* private auth routes */}
         <Route element={<RequireAuth />}>
-          <Route path="/user" element={<Dashboard />}>
-            <Route path="details" element={<AccountDetails />} />
-            <Route path="orders" element={<Orders />} />
+          <Route path={pathnames.user} element={<Dashboard />}>
+            <Route path={pathnames.details} element={<AccountDetails />} />
+            <Route path={pathnames.orders} element={<Orders />} />
           </Route>
         </Route>
 
-        <Route path="*" element={<NotFound />} />
+        <Route path={pathnames.notFound} element={<NotFound />} />
       </Routes>
     </div>
   )

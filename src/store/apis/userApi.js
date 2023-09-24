@@ -5,6 +5,13 @@ const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3001',
     credentials: 'include',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+      return headers
+    },
   }),
   endpoints: (builder) => ({
     signUp: builder.mutation({
@@ -13,17 +20,6 @@ const userApi = createApi({
           url: '/api/auth/signup',
           method: 'POST',
           body: credentials,
-        }
-      },
-    }),
-    signIn: builder.mutation({
-      query: (data) => {
-        const { email, password } = data
-        console.log({ email, password })
-        return {
-          url: '/api/auth/signin',
-          method: 'POST',
-          body: { email, password },
         }
       },
     }),
@@ -58,7 +54,6 @@ const userApi = createApi({
 })
 
 export const {
-  useSignInMutation,
   useSignUpMutation,
   useSignOutMutation,
   useGetUserDetailsQuery,

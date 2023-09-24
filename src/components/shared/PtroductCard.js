@@ -1,9 +1,13 @@
 import { useNavigate } from 'react-router'
+import useLinks from '../../hooks/shared/useLinks'
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate()
+  const {
+    pathnames: { products },
+  } = useLinks()
   const onClick = (code) => {
-    navigate(`/products/${code}`)
+    navigate(`${products}/${code}`)
   }
   return (
     <div className="group">

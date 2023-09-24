@@ -1,6 +1,5 @@
 import { Disclosure } from '@headlessui/react'
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
-import { useSearchParams } from 'react-router-dom'
 import useFilterInputs from '../../hooks/filter-inputs/useFilterInputs'
 
 const FilterInputs = ({ section, extended, ...rest }) => {
