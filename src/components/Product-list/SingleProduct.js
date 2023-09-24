@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { addProductToCart } from '../../store/slices/cartSlice'
 import { useFetchSingleProductQuery } from '../../store'
 import ImageSlider from '../shared/ImageSlider'
+import useLinks from '../../hooks/shared/useLinks'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -16,6 +17,9 @@ const SingleProduct = () => {
   const dispatch = useDispatch()
   const { code } = useParams()
   const navigate = useNavigate()
+  const {
+    pathnames: { products },
+  } = useLinks()
 
   const [breadcrumbs, setBreadcrumbs] = useState([])
   const [otherColors, setOtherColors] = useState([])
@@ -60,7 +64,7 @@ const SingleProduct = () => {
 
   const onClick = (color) => {
     const code = product?.name?.toLocaleLowerCase().replace(/\s/g, '-')
-    navigate(`/products/${code}-${color}`)
+    navigate(`${products}/${code}-${color}`)
   }
 
   return (

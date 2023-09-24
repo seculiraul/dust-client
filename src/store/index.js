@@ -35,7 +35,6 @@ setupListeners(store.dispatch)
 export { useGetOrdersQuery, useAddOrderMutation } from './apis/orderServiceApi'
 export {
   useSignUpMutation,
-  useSignInMutation,
   useSignOutMutation,
   useGetUserDetailsQuery,
   useUpdateUserDetailsMutation,

@@ -64,7 +64,8 @@ const ProductMain = () => {
 
   return isSuccess ? (
     <div className="mx-auto max-w-7xl px-4 sm:px06 lg:px-8">
-      <div className="flex flex-row w-full">
+      <h2 className="p-2 mx-2 text-3xl font-bold">Products</h2>
+      <div className="flex flex-row justify-start w-full">
         <div className="p-2 mr-24">
           <FilterMain data={filterData} />
         </div>
