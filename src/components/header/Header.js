@@ -9,7 +9,7 @@ import HeaderQuickLinks from './HeaderQuickLinks.js'
 const Header = () => {
   const navigate = useNavigate()
   const {
-    pathnames: { signIn, user: userPath, details },
+    pathnames: { cart, user: userPath, details },
   } = useLinks()
   const { logOutUser } = useSignOut()
   const { user, token } = useSelector((state) => state.auth)
@@ -23,7 +23,7 @@ const Header = () => {
       <HeaderQuickLinks />
       <div className="flex flex-row space-x-2 justify-end items-center md:ml-4 md:p-2 md:space-x-4 duration-200">
         <ShoppingBagIcon
-          onClick={() => navigate(signIn)}
+          onClick={() => navigate(cart)}
           className="h-6 w-6 flex-shrink-0 md:mx-4 cursor-pointer"
         />
         <Link to={`${userPath}/${details}`} hidden={!user?.name}>
