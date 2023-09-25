@@ -1,4 +1,4 @@
-import { useCreateProductMutation } from '../../store'
+import { useCreateProductMutation } from '../../../store'
 import ProductCreationForm from './ProductCreationForm'
 
 const ProductCreation = () => {

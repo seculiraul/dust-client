@@ -8,11 +8,11 @@ import ShoppingCartPage from './components/shopping-cart/ShoppingCartPage'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import AccountDetails from './components/user-dashboard/account-details/AccountDetails'
-import Dashboard from './components/user-dashboard/Dashboard'
 import Orders from './components/user-dashboard/orders/Orders'
+import UserDetails from './components/user-dashboard/UserDetails'
+import ProductCreation from './features/adminFeatures/product-creation/ProductCreation'
 import RequireAuth from './features/navigation/RequireAuth'
 import RequireRole from './features/navigation/RequireRole'
-import ProductCreation from './features/product-creation/ProductCreation'
 import ProductMain from './features/productPage/ProductMain'
 import useLinks from './hooks/shared/useLinks'
 
@@ -37,7 +37,7 @@ const App = () => {
 
         {/* private auth routes */}
         <Route element={<RequireAuth />}>
-          <Route path={pathnames.user} element={<Dashboard />}>
+          <Route path={pathnames.user} element={<UserDetails />}>
             <Route path={pathnames.details} element={<AccountDetails />} />
             <Route path={pathnames.orders} element={<Orders />} />
           </Route>

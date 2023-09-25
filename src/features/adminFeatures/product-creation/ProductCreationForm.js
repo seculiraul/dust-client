@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import PrimaryButton from '../../components/shared/buttons/PrimaryButton'
-import TextArea from '../../components/shared/TextArea'
-import TextInput from '../../components/shared/TextInput'
+import PrimaryButton from '../../../components/shared/buttons/PrimaryButton'
+import TextArea from '../../../components/shared/TextArea'
+import TextInput from '../../../components/shared/TextInput'
 
 const ProductCreationForm = ({ submitNewProduct }) => {
   const [name, setName] = useState('')

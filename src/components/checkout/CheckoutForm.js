@@ -3,14 +3,19 @@ import { useState } from 'react'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-const CheckoutForm = ({ totalCart, onSubmit, onDeliveryChange }) => {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [region, setRegion] = useState('')
-  const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
+const CheckoutForm = ({
+  totalCart,
+  onSubmit,
+  onDeliveryChange,
+  userDetails,
+}) => {
+  const [firstName, setFirstName] = useState(userDetails?.firstName ?? '')
+  const [lastName, setLastName] = useState(userDetails?.lastName ?? '')
+  const [address, setAddress] = useState(userDetails?.address ?? '')
+  const [city, setCity] = useState(userDetails?.city ?? '')
+  const [region, setRegion] = useState(userDetails?.region ?? '')
+  const [phone, setPhone] = useState(userDetails?.phone ?? '')
+  const [email, setEmail] = useState(userDetails?.email ?? '')
   const [payMethod, setPaymethod] = useState('')
   const [deliveryOption, setDeliveryOption] = useState('')
 

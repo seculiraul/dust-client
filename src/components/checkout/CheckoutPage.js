@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useAddOrderMutation } from '../../store'
+import { useAddOrderMutation, useGetUserDetailsQuery } from '../../store'
 import CheckoutForm from './CheckoutForm'
 
 const CheckoutPage = () => {
@@ -8,6 +8,7 @@ const CheckoutPage = () => {
   const { items, totalCart } = useSelector((state) => state.cartDetails)
   const [totalOrder, setTotalOrder] = useState(totalCart)
   const [transportCost, setTransportCost] = useState(0)
+  const { data, isSuccess } = useGetUserDetailsQuery()
 
   const [addOrder] = useAddOrderMutation()
 
@@ -33,6 +34,7 @@ const CheckoutPage = () => {
         totalCart={totalOrder}
         onSubmit={onSubmit}
         onDeliveryChange={onDeliveryChange}
+        userDetails={isSuccess ? data?.data : {}}
       />
     </>
   )
