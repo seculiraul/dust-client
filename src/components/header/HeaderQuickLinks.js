@@ -33,10 +33,10 @@ const HeaderQuickLinks = () => {
         Women
       </Link>
       <Link
-        to={pathnames.creation}
+        to={'/admin/creation'}
         className=" m-2 text-sm font-medium hover:border-b border-gray-700 duration-100"
       >
-        New Product
+        Admin Dashboard
       </Link>
     </div>
   )
