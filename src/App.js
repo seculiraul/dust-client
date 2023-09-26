@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router'
+import AdminPage from './components/admin/AdminPage'
 import CheckoutPage from './components/checkout/CheckoutPage'
 import Header from './components/header/Header'
 import HomePage from './components/home/HomePage'
@@ -10,6 +11,7 @@ import SignUp from './components/SignUp'
 import AccountDetails from './components/user-dashboard/account-details/AccountDetails'
 import Orders from './components/user-dashboard/orders/Orders'
 import UserDetails from './components/user-dashboard/UserDetails'
+import CodeCreation from './features/adminFeatures/createCode/CodeCreation'
 import ProductCreation from './features/adminFeatures/product-creation/ProductCreation'
 import RequireAuth from './features/navigation/RequireAuth'
 import RequireRole from './features/navigation/RequireRole'
@@ -30,10 +32,14 @@ const App = () => {
         <Route path={pathnames.checkout} element={<CheckoutPage />} />
         <Route path={pathnames.products} element={<ProductMain />} />
         <Route path={pathnames.singleProduct} element={<SingleProduct />} />
-        <Route path={pathnames.creation} element={<ProductCreation />} />
 
         {/* specific role routes */}
-        <Route element={<RequireRole role={'admin'} />}></Route>
+        <Route element={<RequireRole role={'user'} />}>
+          <Route path={pathnames.admin} element={<AdminPage />}>
+            <Route path={pathnames.creation} element={<ProductCreation />} />
+            <Route path={pathnames.newCode} element={<CodeCreation />} />
+          </Route>
+        </Route>
 
         {/* private auth routes */}
         <Route element={<RequireAuth />}>

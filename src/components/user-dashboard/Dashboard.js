@@ -26,12 +26,12 @@ const Dashboard = ({ menuItems }) => {
   })
   return (
     <div>
-      <div className="flex flex-row p-2 m-2 md:ml-36 md:mr-12 justify-start items-start sapce-x-2">
-        <div className="flex flex-col justify-start items-start gap-2 p-2 m-2 w-1/6 rounded-md shadow-sm">
+      <div className="flex flex-col sm:flex-row p-2 m-2 md:ml-36 md:mr-12 justify-start items-start sapce-x-2">
+        <div className="flex flex-col justify-start items-start gap-2 p-2 m-2 rounded-md shadow-sm">
           {renderItems}
           {renderActions}
         </div>
-        <div className="border-l border-l-gray-300">
+        <div className="border-t border-t-gray-300 sm:border-l sm:border-l-gray-300">
           <Outlet />
         </div>
       </div>

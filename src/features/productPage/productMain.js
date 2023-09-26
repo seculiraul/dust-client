@@ -7,23 +7,26 @@ import FilterMain from './FilterMain'
 
 const ProductMain = () => {
   const [query, setQuery] = useState({})
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSerchParams] = useSearchParams()
   const { data, isSuccess } = useFetchProductsQuery(query)
   const { standard } = useGetFilterConfigs()
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     setQuery(() => {
-      const newQuery = transformSearchParamsInQbj()
-      return newQuery
+      const queryObj = {}
+      for (const [name, value] of searchParams) {
+        queryObj[name] = value
+      }
+      return queryObj
     })
   }, [searchParams])
 
-  const transformSearchParamsInQbj = () => {
-    const queryObj = {}
-    for (const [name, value] of searchParams) {
-      queryObj[name] = value
-    }
-    return queryObj
+  const handleLoadMore = () => {
+    const newPage = page + 1
+    setPage(newPage)
+    searchParams.set('page', newPage)
+    setSerchParams(searchParams)
   }
 
   return isSuccess ? (
@@ -33,8 +36,14 @@ const ProductMain = () => {
         <div className="p-2 mr-24">
           <FilterMain data={standard} />
         </div>
-        <div>
+        <div className="flex flex-col">
           <ProductList products={data?.data?.products} />
+          <button
+            onClick={() => handleLoadMore()}
+            className="mx-auto p-2 px-4 rounded bg-gray-500 text-white hover:bg-gray-700 duration-300"
+          >
+            Load More
+          </button>
         </div>
       </div>
     </div>
