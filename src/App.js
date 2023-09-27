@@ -15,7 +15,7 @@ import CodeCreation from './features/adminFeatures/createCode/CodeCreation'
 import ProductCreation from './features/adminFeatures/product-creation/ProductCreation'
 import RequireAuth from './features/navigation/RequireAuth'
 import RequireRole from './features/navigation/RequireRole'
-import ProductMain from './features/productPage/ProductMain'
+import ProductsMain from './features/productPage/ProductsMain'
 import useLinks from './hooks/shared/useLinks'
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
         <Route path={pathnames.signUp} element={<SignUp />} />
         <Route path={pathnames.cart} element={<ShoppingCartPage />} />
         <Route path={pathnames.checkout} element={<CheckoutPage />} />
-        <Route path={pathnames.products} element={<ProductMain />} />
+        <Route path={pathnames.products} element={<ProductsMain />} />
         <Route path={pathnames.singleProduct} element={<SingleProduct />} />
 
         {/* specific role routes */}

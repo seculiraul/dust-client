@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import useLinks from '../../hooks/shared/useLinks'
 import { editCartItem, removeCartItem } from '../../store/slices/cartSlice'
+import PrimaryButton from '../shared/buttons/PrimaryButton'
 
 const ShoppingCartPage = () => {
   const dispatch = useDispatch()
@@ -52,11 +52,12 @@ const ShoppingCartPage = () => {
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => {
+            {items.map((item, index) => {
               return (
                 <tr key={item.nameAndSize} className="font-serif">
                   <td className="border border-slate-300 rounded-lg text-slate-500">
                     <img
+                      alt={index}
                       onClick={(e) => navigate(`${products}/${item.code}`)}
                       className="w-28 h-28 mx-auto cursor-pointer scale-75 md:scale-100"
                       src={item.displayImage}
@@ -108,12 +109,12 @@ const ShoppingCartPage = () => {
             <h3 className="p-2">Total</h3>
             <h1 className="font-sherif m-2 p-6 font-bold text-2xl">{total}$</h1>
           </div>
-          <button
+          <PrimaryButton
+            disabled={items?.length < 1}
             onClick={() => onCheckoutClick()}
-            className="text-sherif p-2 bg-blue-600 text-white hover:bg-blue-400 duration-200"
           >
             To Checkout
-          </button>
+          </PrimaryButton>
         </div>
       </div>
     </div>

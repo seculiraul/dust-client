@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import ProductList from '../../components/Product-list/ProductList'
+import Sort from '../../components/shared/Sort'
 import useGetFilterConfigs from '../../hooks/shared/useGetFilterConfigs'
 import { useFetchProductsQuery } from '../../store'
 import FilterMain from './FilterMain'
 
-const ProductMain = () => {
+const ProductsMain = () => {
   const [query, setQuery] = useState({})
   const [searchParams, setSerchParams] = useSearchParams()
   const { data, isSuccess } = useFetchProductsQuery(query)
   const { standard } = useGetFilterConfigs()
   const [page, setPage] = useState(1)
+  const [toggleSort, setToggleSort] = useState(true)
 
   useEffect(() => {
     setQuery(() => {
@@ -28,10 +30,16 @@ const ProductMain = () => {
     searchParams.set('page', newPage)
     setSerchParams(searchParams)
   }
+  const tableData = {
+    sortOptions: [{ name: 'Price low - high', current: true }],
+  }
 
   return isSuccess ? (
     <div className="mx-auto max-w-7xl px-4 sm:px06 lg:px-8">
-      <h2 className="p-2 mx-2 text-3xl font-bold">Products</h2>
+      <div className="w-full flex flex-row justify-between">
+        <h2 className="p-2 mx-2 text-3xl font-bold">Products</h2>
+        <Sort sortOptions={tableData.sortOptions} />
+      </div>
       <div className="flex flex-row justify-start w-full">
         <div className="p-2 mr-24">
           <FilterMain data={standard} />
@@ -52,4 +60,4 @@ const ProductMain = () => {
   )
 }
 
-export default ProductMain
+export default ProductsMain
