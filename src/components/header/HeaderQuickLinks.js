@@ -1,8 +1,10 @@
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import useLinks from '../../hooks/shared/useLinks'
 
 const HeaderQuickLinks = () => {
   const { pathnames, searchParams } = useLinks()
+  const { user } = useSelector((state) => state.auth)
 
   return (
     <div className="flex flex-row space-x-2 items-center md:ml-4 md:p-2 md:space-x-4 duration-200">
@@ -33,6 +35,7 @@ const HeaderQuickLinks = () => {
         Women
       </Link>
       <Link
+        hidden={!user?.role?.includes('admin')}
         to={'/admin/creation'}
         className=" m-2 text-sm font-medium hover:border-b border-gray-700 duration-100"
       >

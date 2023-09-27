@@ -4,7 +4,7 @@ const { Outlet, Navigate } = require('react-router')
 const RequireRole = ({ role }) => {
   const { user } = useSelector((state) => state.auth)
 
-  return user?.role === role ? <Outlet /> : <Navigate to={'/home'} />
+  return user?.role?.includes(role) ? <Outlet /> : <Navigate to={'/home'} />
 }
 
 export default RequireRole

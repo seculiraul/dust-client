@@ -1,7 +1,8 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import useLinks from '../hooks/shared/useLinks'
 import { useLoginMutation } from '../store/slices/authApiSlice'
 import { setCredentials } from '../store/slices/authSlice'
 
@@ -10,7 +11,11 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
-  const [login, { isLoading }] = useLoginMutation()
+  const [login] = useLoginMutation()
+  const {
+    pathnames: { home },
+  } = useLinks()
+  const navigate = useNavigate()
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -20,6 +25,7 @@ const SignIn = () => {
       dispatch(setCredentials({ ...data }))
       setEmail('')
       setPassword('')
+      navigate(home)
     } catch (err) {
       console.log(err)
     }
@@ -98,12 +104,12 @@ const SignIn = () => {
               </div>
 
               <div className="text-sm">
-                <a
-                  href="#"
+                <Link
+                  to={'/home'}
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Forgot your password?
-                </a>
+                </Link>
               </div>
             </div>
 

@@ -1,4 +1,4 @@
-import { Link, matchPath, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 const Dashboard = ({ menuItems }) => {
   const path = useLocation().pathname
@@ -31,7 +31,7 @@ const Dashboard = ({ menuItems }) => {
           {renderItems}
           {renderActions}
         </div>
-        <div className="border-t border-t-gray-300 sm:border-l sm:border-l-gray-300">
+        <div className="border-t border-t-gray-300 sm:border-t-0 sm:border-l sm:border-l-gray-300">
           <Outlet />
         </div>
       </div>

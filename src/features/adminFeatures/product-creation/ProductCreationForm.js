@@ -50,7 +50,7 @@ const ProductCreationForm = ({ submitNewProduct }) => {
     submitNewProduct(newProduct)
   }
   return (
-    <div className={`w-full max-w-2xl bg-gray-200 ml-24 p-12`}>
+    <div className={`w-full max-w-2xl ml-24 p-12`}>
       <form
         onSubmit={(e) => sumbitProduct(e)}
         className="flex flex-col gap-2 items-start allign-center"
@@ -115,14 +115,22 @@ const ProductCreationForm = ({ submitNewProduct }) => {
               className=""
             />
           </div>
-        </div>
-        <div className="flex flex-col gap-2 mx-4 p-2">
-          <label className="">Brand</label>
-          <TextInput
-            placeholder="Brand"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-          />
+          <div className="flex flex-col gap-2 mx-4 p-2">
+            <label className="">DisplayImage</label>
+            <TextInput
+              placeholder="DisplayImage"
+              value={displayImage}
+              onChange={(e) => setDisplayImage(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2 mx-4 p-2">
+            <label className="">Brand</label>
+            <TextInput
+              placeholder="Brand"
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+            />
+          </div>
         </div>
         <div className="w-full h-36 flex flex-col gap-2 mx-4 p-2">
           <label className="">Images</label>
@@ -130,14 +138,6 @@ const ProductCreationForm = ({ submitNewProduct }) => {
             extraClasses={'w-full h-full'}
             value={images}
             onChange={(e) => setImages(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col gap-2 mx-4 p-2">
-          <label className="">DisplayImage</label>
-          <TextInput
-            placeholder="DisplayImage"
-            value={displayImage}
-            onChange={(e) => setDisplayImage(e.target.value)}
           />
         </div>
         <div className="w-full h-36 flex flex-col gap-2 mx-4 p-2">

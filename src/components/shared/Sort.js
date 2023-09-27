@@ -3,6 +3,9 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 
 const Sort = ({ sortOptions, classNames }) => {
+  const addClass = (...args) => {
+    return args.join()
+  }
   return (
     <div className="flex items-center">
       <Menu as="div" className="relative inline-block text-left">
@@ -18,10 +21,10 @@ const Sort = ({ sortOptions, classNames }) => {
 
         <Transition
           as={Fragment}
-          enter="transition ease-out duration-100"
+          enter="transition ease-out duration-200"
           enterFrom="transform opacity-0 scale-95"
           enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
+          leave="transition ease-in duration-200"
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
@@ -32,12 +35,12 @@ const Sort = ({ sortOptions, classNames }) => {
                   {({ active }) => (
                     <a
                       href={option.href}
-                      className={classNames(
+                      className={addClass(
                         option.current
                           ? 'font-medium text-gray-900'
                           : 'text-gray-500',
                         active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-sm'
+                        'block px-4 py-2 text-sm cursor-pointer'
                       )}
                     >
                       {option.name}

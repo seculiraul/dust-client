@@ -69,9 +69,8 @@ const cartSlice = createSlice({
     },
 
     removeCartItem: (state, action) => {
-      // NEED TO FIX THIS
-      const cartItems = state.items.filter(
-        (el) => el.nameAndSize !== action.payload.item.nameAndSize
+      const cartItems = state?.items?.filter(
+        (el) => el.nameAndSize !== action.payload?.nameAndSize
       )
       const totalPrice = calculateTotal(cartItems)
 
