@@ -3,16 +3,19 @@ import { useSearchParams } from 'react-router-dom'
 import ProductList from '../../components/Product-list/ProductList'
 import Sort from '../../components/shared/Sort'
 import useGetFilterConfigs from '../../hooks/shared/useGetFilterConfigs'
+import useSortOptions from '../../hooks/shared/useSortOptions'
 import { useFetchProductsQuery } from '../../store'
 import FilterMain from './FilterMain'
 
 const ProductsMain = () => {
   const [query, setQuery] = useState({})
-  const [searchParams, setSerchParams] = useSearchParams()
-  const { data, isSuccess } = useFetchProductsQuery(query)
-  const { standard } = useGetFilterConfigs()
   const [page, setPage] = useState(1)
-  const [toggleSort, setToggleSort] = useState(true)
+  const [searchParams, setSerchParams] = useSearchParams()
+
+  const { standard } = useGetFilterConfigs()
+  const { sortOptions } = useSortOptions()
+
+  const { data, isSuccess } = useFetchProductsQuery(query)
 
   useEffect(() => {
     setQuery(() => {
@@ -30,15 +33,18 @@ const ProductsMain = () => {
     searchParams.set('page', newPage)
     setSerchParams(searchParams)
   }
-  const tableData = {
-    sortOptions: [{ name: 'Price low - high', current: true }],
+
+  const onSortClick = (val) => {
+    const sort = val
+    searchParams.set('sort', val)
+    setSerchParams(searchParams)
   }
 
   return isSuccess ? (
     <div className="mx-auto max-w-7xl px-4 sm:px06 lg:px-8">
       <div className="w-full flex flex-row justify-between">
         <h2 className="p-2 mx-2 text-3xl font-bold">Products</h2>
-        <Sort sortOptions={tableData.sortOptions} />
+        <Sort sortOptions={sortOptions} sortClick={onSortClick} />
       </div>
       <div className="flex flex-row justify-start w-full">
         <div className="p-2 mr-24">
