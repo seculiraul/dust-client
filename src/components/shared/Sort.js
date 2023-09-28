@@ -2,9 +2,13 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 
-const Sort = ({ sortOptions, classNames }) => {
+const Sort = ({ sortOptions, sortClick }) => {
   const addClass = (...args) => {
     return args.join()
+  }
+
+  const handleClick = (val) => {
+    sortClick(val)
   }
   return (
     <div className="flex items-center">
@@ -29,12 +33,12 @@ const Sort = ({ sortOptions, classNames }) => {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="py-1">
+            <div className="py-1 flex flex-col">
               {sortOptions.map((option) => (
                 <Menu.Item key={option.name}>
                   {({ active }) => (
                     <a
-                      href={option.href}
+                      onClick={() => handleClick(option?.value)}
                       className={addClass(
                         option.current
                           ? 'font-medium text-gray-900'
