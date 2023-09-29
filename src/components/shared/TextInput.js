@@ -1,10 +1,13 @@
-const TextInput = ({ extraClasses, ...rest }) => {
+const TextInput = ({ extraClasses, errorMessage, ...rest }) => {
   return (
-    <input
-      className={`p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200 ${extraClasses}`}
-      type="text"
-      {...rest}
-    />
+    <div className="flex flex-col">
+      <input
+        className={`p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200 ${extraClasses}`}
+        type="text"
+        {...rest}
+      />
+      <span className="text-red-600">{errorMessage}</span>
+    </div>
   )
 }
 export default TextInput

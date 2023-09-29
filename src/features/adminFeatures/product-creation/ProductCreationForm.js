@@ -58,6 +58,7 @@ const ProductCreationForm = ({ submitNewProduct }) => {
         <div className="w-full flex flex-col gap-2 mx-4 p-2">
           <label className="">Product Name</label>
           <TextInput
+            errorMessage={'error here'}
             id={'name-input'}
             extraClasses={'w-full'}
             placeholder="Product Name"
