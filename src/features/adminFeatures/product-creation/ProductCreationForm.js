@@ -12,15 +12,29 @@ const ProductCreationForm = ({ submitNewProduct }) => {
   const [color, setColor] = useState('')
   const [price, setPrice] = useState('')
   const [brand, setBrand] = useState('')
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState('')
   const [displayImage, setDisplayImage] = useState('')
   const [description, setDescription] = useState('')
   const [details, setDetails] = useState('')
-  const [specs, setSpecs] = useState([])
+  const [specs, setSpecs] = useState('')
   const [quantityS, setQuantityS] = useState('')
   const [quantityM, setQuantityM] = useState('')
   const [quantityL, setQuantityL] = useState('')
   const [quantityXL, setQuantityXL] = useState('')
+
+  const [errors] = useState({
+    name: '',
+    category: '',
+    collectionType: '',
+    collectionCode: '',
+    gender: '',
+    color: '',
+    price: '',
+    brand: '',
+    images: '',
+    displayImage: '',
+    quantity: '',
+  })
 
   const sumbitProduct = (e) => {
     e.preventDefault()
@@ -34,21 +48,21 @@ const ProductCreationForm = ({ submitNewProduct }) => {
       color,
       price: +price,
       brand,
-      images: images.split('\n'),
+      images: images?.split('\n'),
       displayImage,
       description,
       details,
-      specs: images.split('\n'),
+      specs: specs ? specs?.split('\n') : [''],
       sizes: [
-        { size: 'S', quantity: +quantityS },
-        { size: 'M', quantity: +quantityM },
-        { size: 'L', quantity: +quantityL },
-        { size: 'XL', quantity: +quantityXL },
+        { size: 'S', quantity: quantityS ? +quantityS : 0 },
+        { size: 'M', quantity: quantityM ? +quantityM : 0 },
+        { size: 'L', quantity: quantityL ? +quantityL : 0 },
+        { size: 'XL', quantity: quantityXL ? +quantityXL : 0 },
       ],
     }
-
     submitNewProduct(newProduct)
   }
+
   return (
     <div className={`w-full max-w-2xl ml-24 p-12`}>
       <form
@@ -56,90 +70,147 @@ const ProductCreationForm = ({ submitNewProduct }) => {
         className="flex flex-col gap-2 items-start allign-center"
       >
         <div className="w-full flex flex-col gap-2 mx-4 p-2">
-          <label className="">Product Name</label>
+          <label htmlFor="name">Product Name</label>
           <TextInput
-            errorMessage={'error here'}
-            id={'name-input'}
+            id={'name'}
+            required={true}
+            onChange={(e) => setName(e.target.value)}
+            // required={true}
+            // onBlur={(e) => setNameBlur()}
             extraClasses={'w-full'}
             placeholder="Product Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
           />
+          {errors.name ? <p className="text-red-600">{errors.name}</p> : <></>}
         </div>
         <div className="grid grid-cols-2">
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">Category</label>
             <TextInput
+              required={true}
               placeholder="Category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             />
+            {errors.category ? (
+              <p className="text-red-600">{errors.category}</p>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">Collection Type</label>
             <TextInput
+              required={true}
               placeholder="Collection Type"
               value={collectionType}
               onChange={(e) => setCollectionType(e.target.value)}
             />
+            {errors.collectionType ? (
+              <p className="text-red-600">{errors.collectionType}</p>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">Collection Code</label>
             <TextInput
+              required={true}
               placeholder="Collection Code"
               value={collectionCode}
               onChange={(e) => setCollectionCode(e.target.value)}
             />
+            {errors.collectionCode ? (
+              <p className="text-red-600">{errors.collectionCode}</p>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">Gender</label>
             <TextInput
+              required={true}
               placeholder="Gender"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
             />
+            {errors.gender ? (
+              <p className="text-red-600">{errors.gender}</p>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">Colour</label>
             <TextInput
+              required={true}
               placeholder="Colour"
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
+            {errors.color ? (
+              <p className="text-red-600">{errors.color}</p>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">Price</label>
             <input
+              required={true}
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               className=""
             />
+            {errors.price ? (
+              <p className="text-red-600">{errors.price}</p>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">DisplayImage</label>
             <TextInput
+              required={true}
               placeholder="DisplayImage"
               value={displayImage}
               onChange={(e) => setDisplayImage(e.target.value)}
             />
+            {errors.displayImage ? (
+              <p className="text-red-600">{errors.displayImage}</p>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="flex flex-col gap-2 mx-4 p-2">
             <label className="">Brand</label>
             <TextInput
+              required={true}
               placeholder="Brand"
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
             />
+            {errors.brand ? (
+              <p className="text-red-600">{errors.brand}</p>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="w-full h-36 flex flex-col gap-2 mx-4 p-2">
           <label className="">Images</label>
           <TextArea
+            required={true}
             extraClasses={'w-full h-full'}
             value={images}
             onChange={(e) => setImages(e.target.value)}
           />
+          {errors.displayImage ? (
+            <p className="text-red-600">{errors.displayImage}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="w-full h-36 flex flex-col gap-2 mx-4 p-2">
           <label className="">Description</label>
@@ -165,12 +236,13 @@ const ProductCreationForm = ({ submitNewProduct }) => {
             onChange={(e) => setSpecs(e.target.value)}
           />
         </div>
-        <div className="">
+        <div className="flex flex-col">
           <label className="p-2 my-4">Sizes</label>
           <div className="grid grid-cols-2">
             <div className="flex flex-row">
               <label className="p-2 mx-auto">S</label>
               <TextInput
+                required={true}
                 placeholder="Enter Numer"
                 value={quantityS}
                 onChange={(e) => setQuantityS(e.target.value)}
@@ -179,6 +251,7 @@ const ProductCreationForm = ({ submitNewProduct }) => {
             <div className="flex flex-row">
               <label className="p-2 mx-auto">M</label>
               <TextInput
+                required={true}
                 placeholder="Enter Numer"
                 value={quantityM}
                 onChange={(e) => setQuantityM(e.target.value)}
@@ -187,6 +260,7 @@ const ProductCreationForm = ({ submitNewProduct }) => {
             <div className="flex flex-row">
               <label className="p-2 mx-auto">L</label>
               <TextInput
+                required={true}
                 placeholder="Enter Numer"
                 value={quantityL}
                 onChange={(e) => setQuantityL(e.target.value)}
@@ -195,12 +269,18 @@ const ProductCreationForm = ({ submitNewProduct }) => {
             <div className="flex flex-row">
               <label className="p-2 mx-auto">XL</label>
               <TextInput
+                required={true}
                 placeholder="Enter Numer"
                 value={quantityXL}
                 onChange={(e) => setQuantityXL(e.target.value)}
               />
             </div>
           </div>
+          {errors.quantity ? (
+            <p className="p-2 text-red-600">{errors.quantity}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <PrimaryButton extraClasses={'mx-2 my-4'} type={'sumbit'}>
           Create Product

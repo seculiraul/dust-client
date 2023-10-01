@@ -6,7 +6,6 @@ const TextInput = ({ extraClasses, errorMessage, ...rest }) => {
         type="text"
         {...rest}
       />
-      <span className="text-red-600">{errorMessage}</span>
     </div>
   )
 }
