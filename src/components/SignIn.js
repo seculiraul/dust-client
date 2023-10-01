@@ -1,5 +1,5 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import useLinks from '../hooks/shared/useLinks'
@@ -10,36 +10,42 @@ const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [errMsg, setErrMsg] = useState('')
+
   const dispatch = useDispatch()
   const [login] = useLoginMutation()
+
   const {
-    pathnames: { home },
+    pathnames: { home, signUp },
   } = useLinks()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setErrMsg('')
+  }, [email, password])
 
   const onSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await login({ email, password })
-      console.log(data)
-      dispatch(setCredentials({ ...data }))
-      setEmail('')
-      setPassword('')
-      navigate(home)
-    } catch (err) {
-      console.log(err)
+      const { data, error } = await login({ email, password })
+
+      if (data) {
+        console.log(data)
+        dispatch(setCredentials({ ...data }))
+        setEmail('')
+        setPassword('')
+        navigate(home)
+      } else {
+        console.log(error)
+        setErrMsg(error?.data?.message)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
+
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -47,7 +53,7 @@ const SignIn = () => {
               Sign in to your account
             </h2>
             <p className="mt-2 text-center text-sm text-blue-600">
-              <Link to={'/signup'}>Register now for FREE</Link>
+              <Link to={signUp}>Register now for FREE</Link>
             </p>
           </div>
           <form className="mt-8 space-y-6" onSubmit={onSubmit}>
@@ -65,7 +71,9 @@ const SignIn = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className={`relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm  ${
+                    errMsg ? 'border-red-600' : ''
+                  }`}
                   placeholder="Email address"
                 />
               </div>
@@ -81,10 +89,14 @@ const SignIn = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className={`relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
+                    errMsg ? 'border-red-600' : ''
+                  }`}
                   placeholder="Password"
                 />
               </div>
+
+              {errMsg ? <span className="text-red-600">{errMsg}</span> : <></>}
             </div>
 
             <div className="flex items-center justify-between">
@@ -133,11 +145,5 @@ const SignIn = () => {
     </>
   )
 }
-
-// const mapStateToProps = (state) => {
-//   return { user: state.currentUser }
-// }
-
-// export default connect(mapStateToProps, { signIn })(SignIn)
 
 export default SignIn

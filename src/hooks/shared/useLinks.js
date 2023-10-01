@@ -7,7 +7,7 @@ const useLinks = () => {
     creation: 'creation',
     newCode: 'new-code',
     signIn: '/signIn',
-    signUp: 'signUp',
+    signUp: '/signup',
     cart: '/cart',
     checkout: '/checkout',
     user: '/user',
