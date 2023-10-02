@@ -1,12 +1,12 @@
 const PrimaryButton = ({ children, extraClasses, disabled, ...rest }) => {
   const disabledClasses = disabled
-    ? 'cursor-not-allowed bg-blue-300 hover:bg-blue-300'
-    : ''
+    ? 'cursor-not-allowed bg-blue-300'
+    : ' bg-blue-500 hover:bg-blue-600'
   return (
     <button
       {...rest}
       disabled={disabled}
-      className={`py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 duration-300 ${extraClasses} ${disabledClasses}`}
+      className={`py-2 px-4 text-white rounded duration-300 ${disabledClasses} ${extraClasses}`}
     >
       {children}
     </button>
