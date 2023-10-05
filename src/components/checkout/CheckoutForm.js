@@ -1,51 +1,43 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import useCheckouForm from '../../hooks/checkout/useCheckoutForm'
+import PrimaryButton from '../shared/buttons/PrimaryButton'
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-const CheckoutForm = ({
-  totalCart,
-  onSubmit,
-  onDeliveryChange,
-  userDetails,
-}) => {
-  const [firstName, setFirstName] = useState(userDetails?.firstName ?? '')
-  const [lastName, setLastName] = useState(userDetails?.lastName ?? '')
-  const [address, setAddress] = useState(userDetails?.address ?? '')
-  const [city, setCity] = useState(userDetails?.city ?? '')
-  const [region, setRegion] = useState(userDetails?.region ?? '')
-  const [phone, setPhone] = useState(userDetails?.phone ?? '')
-  const [email, setEmail] = useState(userDetails?.email ?? '')
+const CheckoutForm = ({ totalCart, onDeliveryChange, userDetails }) => {
+  const form = useRef()
+  const { inputs, areAllInputsValid } = useCheckouForm(userDetails)
+
   const [payMethod, setPaymethod] = useState('')
   const [deliveryOption, setDeliveryOption] = useState('')
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    const info = {
-      deliveryDetails: {
-        firstName,
-        lastName,
-        address,
-        city,
-        region,
-        phone,
-        email,
-      },
-      payMethod,
-      deliveryOption,
-    }
-    onSubmit(info)
+    console.log(form)
 
-    setFirstName('')
-    setLastName('')
-    setAddress('')
-    setCity('')
-    setRegion('')
-    setPhone('')
-    setEmail('')
-    setPaymethod('card')
-    setDeliveryOption('fastCourier')
+    // const info = {
+    //   deliveryDetails: {
+    //     firstName,
+    //     lastName,
+    //     address,
+    //     city,
+    //     region,
+    //     phone,
+    //     email,
+    //   },
+    //   payMethod,
+    //   deliveryOption,
+    // }
+    // onSubmit(info)
+
+    // setFirstName('')
+    // setLastName('')
+    // setAddress('')
+    // setCity('')
+    // setRegion('')
+    // setPhone('')
+    // setEmail('')
+    // setPaymethod('card')
+    // setDeliveryOption('fastCourier')
   }
 
   const handleOnDeliveryChange = (option) => {
@@ -53,94 +45,69 @@ const CheckoutForm = ({
     onDeliveryChange(option)
   }
 
+  const mapInput = (input) => {
+    return (
+      <div
+        key={input?.name}
+        className={`${
+          input?.inputType === 'full' ? 'w-full' : 'w-11/12'
+        } text-left`}
+      >
+        <label htmlFor={input?.name} className="block mb-2">
+          {input.labelText}
+        </label>
+        <input
+          name={input?.name}
+          value={input.value}
+          required
+          onInvalid={input?.onInvalid}
+          onInput={(e) => e.target.setCustomValidity('')}
+          onFocus={input?.onFocus}
+          onChange={input.onChange}
+          className={`w-11/12 p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200 ${input.extraClasses}`}
+          type="text"
+          placeholder={input.placeholder}
+        />
+        {input?.focus && input?.value && !input?.validation ? (
+          <p className="text-red-600">{input?.paragraphMsg}</p>
+        ) : (
+          <></>
+        )}
+      </div>
+    )
+  }
+
+  const renderInputs = {
+    nameInputs: inputs.nameInputs.map((input) => mapInput(input)),
+    fullInputs: inputs.fullLengthInputs.map((input) => mapInput(input)),
+    locationInputs: inputs.locationInputs.map((input) => mapInput(input)),
+    contactInputs: inputs.contactInputs.map((input) => mapInput(input)),
+  }
+
   return (
     <div className="max-w-[1500px] w-full mx-auto text-center m-5 p-10">
       <div className="flex flex-col w-full p-4  items-start justify-items-center  border border-gray-200 space-y-2 md:items-center md:flex-row md:space-y-0 md:space=x=4 md:items-start">
-        <div className="h-42 w-full md:w-2/3">
-          <form className="border-b-2 md:border-b-0 md:border-r-2 border-gray-200 w-full">
+        <form
+          ref={form}
+          onSubmit={handleOnSubmit}
+          className="flex flex-col p-4 m-2 w-full space-y-4 md:flex-row md:space-y-0 md:space-x-2"
+        >
+          <div className="h-42 w-full md:w-2/3 border-b02 md:border-b-0 md:border-r-2 border-gray-200 w-full">
             <div className="flex flex-col p-4 m-2 w-full items-stretch justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-2">
-              <div className="w-11/12 text-left">
-                <label className="block mb-2">First Name</label>
-                <input
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-11/12 p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200"
-                  type="text"
-                  placeholder="Enter First Name"
-                />
-              </div>
-              <div className="w-11/12 text-left">
-                <label className="block mb-2">Last Name</label>
-                <input
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-11/12 p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200"
-                  type="text"
-                  placeholder="Enter Last Name"
-                />
-              </div>
+              {renderInputs.nameInputs}
             </div>
             <div className="flex flex-col p-4 m-2 items-stretch justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-2">
-              <div className="w-full text-left">
-                <label className="block mb-2">Address</label>
-                <input
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="w-full p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200"
-                  type="text"
-                  placeholder="Enter Address"
-                />
-              </div>
+              {renderInputs.fullInputs}
             </div>
             <div className="flex flex-col p-4 m-2 items-stretch justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-2">
-              <div className="w-11/12 text-left">
-                <label className="block mb-2">City</label>
-                <input
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="w-11/12 p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200"
-                  type="text"
-                  placeholder="Enter City"
-                />
-              </div>
-              <div className="w-11/12 text-left">
-                <label className="block mb-2">Region</label>
-                <input
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value)}
-                  className="w-11/12 p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200"
-                  type="text"
-                  placeholder="Enter Region"
-                />
-              </div>
+              {renderInputs.locationInputs}
             </div>
             <div className="flex flex-col p-4 m-2 items-stretch justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-2">
-              <div className="w-11/12 text-left">
-                <label className="block mb-2">Phone Number</label>
-                <input
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-11/12 p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200"
-                  type="text"
-                  placeholder="Enter Phone Number"
-                />
-              </div>
-              <div className="w-11/12 text-left">
-                <label className="block mb-2">Email</label>
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-11/12 p-2 border-2 border-slate-300 rounded-md focus:bg-gray-100 hover:border-gray-400 focus:border-gray-400 focus:outline-0 duration-200"
-                  type="text"
-                  placeholder="Enter Email"
-                />
-              </div>
+              {renderInputs.contactInputs}
             </div>
-          </form>
-        </div>
-        <div className="flex flex-col h-42 p-2 space-y-2 md:w-1/3">
-          <div className="m-2 p-2 border-b-0 w-full">
-            <form>
+          </div>
+          <div className="flex flex-col h-42 p-2 space-y-2 md:w-1/3">
+            <div className="m-2 p-2 border-b-0 w-full">
               <div className="flex flex-col m-2 p-2 pb-6 border-b-2 border-slate-700 md:ml-7 space-y-3 items-start">
                 <h2 className="text-lg font-bold">Select payment method</h2>
                 <div>
@@ -223,20 +190,17 @@ const CheckoutForm = ({
                   <span className="ml-2 text-2xl font-bold">{`${totalCart} $`}</span>
                 </h2>
               </div>
-              <button
-                onClick={handleOnSubmit}
-                disabled={payMethod === '' && deliveryOption === ''}
-                className={classNames(
-                  payMethod !== '' && deliveryOption !== ''
-                    ? 'w-full mt-2 p-2 bg-blue-600 rounded-md text-white hover:bg-blue-800 hover:scale-110 duration-200'
-                    : 'w-full mt-2 p-2 bg-blue-200 rounded-md text-white cursor-not-allowed'
-                )}
+              <PrimaryButton
+                disabled={
+                  areAllInputsValid || payMethod === '' || deliveryOption === ''
+                }
+                extraClasses={'w-full'}
               >
                 Place Order
-              </button>
-            </form>
+              </PrimaryButton>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )
