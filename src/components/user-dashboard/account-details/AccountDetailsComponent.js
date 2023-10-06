@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const AccountDetailsComponent = ({
   details,
@@ -7,13 +7,23 @@ const AccountDetailsComponent = ({
   onSaveClick,
   onCancelClick,
 }) => {
-  const [firstName, setFirstName] = useState(details?.firstName)
-  const [lastName, setLastName] = useState(details?.lastName)
-  const [address, setAddress] = useState(details?.address)
-  const [city, setCity] = useState(details?.city)
-  const [region, setRegion] = useState(details?.region)
-  const [email] = useState(details?.email)
-  const [phone] = useState(details?.phone)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [address, setAddress] = useState('')
+  const [city, setCity] = useState('')
+  const [region, setRegion] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+
+  useEffect(() => {
+    setFirstName(details?.firstName ?? '')
+    setLastName(details?.lastName ?? '')
+    setAddress(details?.address ?? '')
+    setCity(details?.city ?? '')
+    setRegion(details?.region ?? '')
+    setEmail(details?.email ?? '')
+    setPhone(details?.phone ?? '')
+  }, [details])
 
   const handleSaveClick = () => {
     onSaveClick({
