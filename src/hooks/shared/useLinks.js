@@ -13,6 +13,7 @@ const useLinks = () => {
     user: '/user',
     details: 'details',
     orders: 'orders',
+    productEditor: '/edit',
     notFound: '*',
   }
 

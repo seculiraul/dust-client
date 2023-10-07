@@ -1,5 +1,5 @@
 import { useCreateProductMutation } from '../../../store'
-import ProductCreationForm from './ProductCreationForm'
+import DetaildProductForm from '../../../components/shared/forms/DetaildProductForm'
 
 const ProductCreation = () => {
   const [createProduct, { isLoading }] = useCreateProductMutation()
@@ -7,7 +7,9 @@ const ProductCreation = () => {
     createProduct(newProduct)
   }
 
-  return <ProductCreationForm submitNewProduct={submitNewProduct} />
+  return (
+    <DetaildProductForm prodcutValue={{}} submitNewProduct={submitNewProduct} />
+  )
 }
 
 export default ProductCreation

@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import PrimaryButton from '../../../components/shared/buttons/PrimaryButton'
-import TextArea from '../../../components/shared/TextArea'
-import TextInput from '../../../components/shared/TextInput'
+import { useEffect, useState } from 'react'
+import PrimaryButton from '../buttons/PrimaryButton'
+import TextArea from '../TextArea'
+import TextInput from '../TextInput'
 
-const ProductCreationForm = ({ submitNewProduct }) => {
+const DetaildProductForm = ({ prodcutValue, submitNewProduct }) => {
   const [name, setName] = useState('')
   const [category, setCategory] = useState('')
   const [collectionType, setCollectionType] = useState('')
@@ -21,6 +21,38 @@ const ProductCreationForm = ({ submitNewProduct }) => {
   const [quantityM, setQuantityM] = useState('')
   const [quantityL, setQuantityL] = useState('')
   const [quantityXL, setQuantityXL] = useState('')
+
+  useEffect(() => {
+    setName(prodcutValue?.name ?? '')
+    setCategory(prodcutValue?.category ?? '')
+    setCollectionType(prodcutValue?.collectionType ?? '')
+    setCollectionCode(prodcutValue?.collectionCode ?? '')
+    setGender(prodcutValue?.gender ?? '')
+    setColor(prodcutValue?.color ?? '')
+    setPrice(prodcutValue.price ?? '')
+    setBrand(prodcutValue.brand ?? '')
+    setImages(prodcutValue?.images?.join('\n') ?? '')
+    setDisplayImage(prodcutValue?.displayImage ?? '')
+    setDescription(prodcutValue?.description ?? '')
+    setDetails(prodcutValue?.description ?? '')
+    setSpecs(prodcutValue?.specs?.join('\n') ?? '')
+    setQuantityS(
+      prodcutValue?.sizes?.filter((size) => size.size === 'S')?.[0]?.quantity ??
+        ''
+    )
+    setQuantityM(
+      prodcutValue?.sizes?.filter((size) => size.size === 'M')?.[0]?.quantity ??
+        ''
+    )
+    setQuantityL(
+      prodcutValue?.sizes?.filter((size) => size.size === 'L')?.[0]?.quantity ??
+        ''
+    )
+    setQuantityXL(
+      prodcutValue?.sizes?.filter((size) => size.size === 'XL')?.[0]
+        ?.quantity ?? ''
+    )
+  }, [prodcutValue])
 
   const [errors] = useState({
     name: '',
@@ -283,11 +315,11 @@ const ProductCreationForm = ({ submitNewProduct }) => {
           )}
         </div>
         <PrimaryButton extraClasses={'mx-2 my-4'} type={'sumbit'}>
-          Create Product
+          {prodcutValue ? 'Edit Product' : 'Create Prodcut'}
         </PrimaryButton>
       </form>
     </div>
   )
 }
 
-export default ProductCreationForm
+export default DetaildProductForm
