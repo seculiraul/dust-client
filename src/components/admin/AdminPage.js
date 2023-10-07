@@ -16,6 +16,10 @@ const AdminPage = () => {
         path: newCode,
         name: 'Create Discount Code',
       },
+      {
+        path: 'editProduct',
+        name: 'Edit Prodcuts',
+      },
     ],
   }
   return (

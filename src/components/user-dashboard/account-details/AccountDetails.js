@@ -16,6 +16,7 @@ const AccountDetails = () => {
   }
 
   const onSaveClick = async (details) => {
+    console.log(details)
     await updateUserDetails(details)
     setEditMode(() => !editMode)
   }

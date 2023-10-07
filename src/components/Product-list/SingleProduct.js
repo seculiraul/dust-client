@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { addProductToCart } from '../../store/slices/cartSlice'
 import { useFetchSingleProductQuery } from '../../store'
@@ -18,8 +18,10 @@ const SingleProduct = () => {
   const { code } = useParams()
   const navigate = useNavigate()
   const {
-    pathnames: { products },
+    pathnames: { products, productEditor },
   } = useLinks()
+
+  const { user } = useSelector((state) => state.auth)
 
   const [breadcrumbs, setBreadcrumbs] = useState([])
   const [otherColors, setOtherColors] = useState([])
@@ -258,7 +260,7 @@ const SingleProduct = () => {
                   </div>
                 </RadioGroup>
               </div>
-
+              <div className="flex flex-col"></div>
               <button
                 type="submit"
                 disabled={selectedSize === ''}
@@ -271,6 +273,19 @@ const SingleProduct = () => {
               >
                 Add to cart
               </button>
+              {user?.role?.includes('admin') && (
+                <div className="flex flex-row justify-between mt-2">
+                  <button
+                    onClick={() => navigate(productEditor)}
+                    className="py-2 px-4 text-white rounded bg-gray-400 hover:bg-gray-500 duration-200"
+                  >
+                    Edit Product
+                  </button>
+                  <button className="py-2 px-4 text-white rounded bg-red-400 hover:bg-red-500 duration-200">
+                    Delete Product
+                  </button>
+                </div>
+              )}
             </form>
           </div>
 

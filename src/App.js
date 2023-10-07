@@ -17,6 +17,7 @@ import RequireAuth from './features/navigation/RequireAuth'
 import RequireRole from './features/navigation/RequireRole'
 import ProductsMain from './features/productPage/ProductsMain'
 import useLinks from './hooks/shared/useLinks'
+import EditProduct from './features/adminFeatures/product-edit/EditProduct'
 
 const App = () => {
   const { pathnames } = useLinks()
@@ -32,6 +33,7 @@ const App = () => {
         <Route path={pathnames.checkout} element={<CheckoutPage />} />
         <Route path={pathnames.products} element={<ProductsMain />} />
         <Route path={pathnames.singleProduct} element={<SingleProduct />} />
+        <Route path={pathnames.productEditor} element={<EditProduct />} />
 
         {/* specific role routes */}
         <Route element={<RequireRole role={'user'} />}>
