@@ -3,7 +3,7 @@ import PrimaryButton from '../buttons/PrimaryButton'
 import TextArea from '../TextArea'
 import TextInput from '../TextInput'
 
-const DetaildProductForm = ({ prodcutValue, submitNewProduct }) => {
+const DetaildProductForm = ({ prodcutValue, onSubmitClick }) => {
   const [name, setName] = useState('')
   const [category, setCategory] = useState('')
   const [collectionType, setCollectionType] = useState('')
@@ -29,8 +29,8 @@ const DetaildProductForm = ({ prodcutValue, submitNewProduct }) => {
     setCollectionCode(prodcutValue?.collectionCode ?? '')
     setGender(prodcutValue?.gender ?? '')
     setColor(prodcutValue?.color ?? '')
-    setPrice(prodcutValue.price ?? '')
-    setBrand(prodcutValue.brand ?? '')
+    setPrice(prodcutValue?.price ?? '')
+    setBrand(prodcutValue?.brand ?? '')
     setImages(prodcutValue?.images?.join('\n') ?? '')
     setDisplayImage(prodcutValue?.displayImage ?? '')
     setDescription(prodcutValue?.description ?? '')
@@ -92,7 +92,7 @@ const DetaildProductForm = ({ prodcutValue, submitNewProduct }) => {
         { size: 'XL', quantity: quantityXL ? +quantityXL : 0 },
       ],
     }
-    submitNewProduct(newProduct)
+    onSubmitClick(newProduct)
   }
 
   return (

@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { addProductToCart } from '../../store/slices/cartSlice'
-import { useFetchSingleProductQuery } from '../../store'
+import {
+  useDeleteProductMutation,
+  useFetchSingleProductQuery,
+} from '../../store'
 import ImageSlider from '../shared/ImageSlider'
 import useLinks from '../../hooks/shared/useLinks'
 
@@ -31,6 +34,7 @@ const SingleProduct = () => {
   const [selectedSize, setSelectedSize] = useState('')
 
   const { data } = useFetchSingleProductQuery(code)
+  const [deleteProduct] = useDeleteProductMutation()
 
   const onAddToCartClick = (e) => {
     e.preventDefault()
@@ -67,6 +71,12 @@ const SingleProduct = () => {
   const onClick = (color) => {
     const code = product?.name?.toLocaleLowerCase().replace(/\s/g, '-')
     navigate(`${products}/${code}-${color}`)
+  }
+
+  const onDeleteClick = async (e) => {
+    e.preventDefault()
+    await deleteProduct(product?._id)
+    navigate(products)
   }
 
   return (
@@ -276,12 +286,20 @@ const SingleProduct = () => {
               {user?.role?.includes('admin') && (
                 <div className="flex flex-row justify-between mt-2">
                   <button
-                    onClick={() => navigate(productEditor)}
+                    onClick={() =>
+                      navigate(productEditor, {
+                        state: { product: data?.data?.product },
+                      })
+                    }
                     className="py-2 px-4 text-white rounded bg-gray-400 hover:bg-gray-500 duration-200"
                   >
                     Edit Product
                   </button>
-                  <button className="py-2 px-4 text-white rounded bg-red-400 hover:bg-red-500 duration-200">
+                  <button
+                    type="button"
+                    onClick={(e) => onDeleteClick(e)}
+                    className="py-2 px-4 text-white rounded bg-red-400 hover:bg-red-500 duration-200"
+                  >
                     Delete Product
                   </button>
                 </div>
