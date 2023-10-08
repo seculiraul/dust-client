@@ -7,9 +7,7 @@ const ProductCreation = () => {
     createProduct(newProduct)
   }
 
-  return (
-    <DetaildProductForm prodcutValue={{}} submitNewProduct={submitNewProduct} />
-  )
+  return <DetaildProductForm onSubmitClick={submitNewProduct} />
 }
 
 export default ProductCreation

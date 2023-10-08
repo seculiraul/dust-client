@@ -4,6 +4,13 @@ const productApi = createApi({
   reducerPath: 'products',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3002',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState()?.auth?.token
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+      return headers
+    },
   }),
   endpoints: (builder) => ({
     fetchProducts: builder.query({
@@ -16,6 +23,7 @@ const productApi = createApi({
           },
         }
       },
+      providesTags: ['FETCH_PRODUCTS'],
     }),
     fetchRecomandedProducts: builder.query({
       query: (param) => {
@@ -42,6 +50,24 @@ const productApi = createApi({
         }
       },
     }),
+    editProduct: builder.mutation({
+      query: (params) => {
+        return {
+          url: `/api/v1/products/${params.id}`,
+          method: 'PATCH',
+          body: params.editedProduct,
+        }
+      },
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/api/v1/products/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['FETCH_PRODUCTS'],
+    }),
   }),
 })
 
@@ -50,5 +76,7 @@ export const {
   useFetchRecomandedProductsQuery,
   useFetchSingleProductQuery,
   useCreateProductMutation,
+  useEditProductMutation,
+  useDeleteProductMutation,
 } = productApi
 export { productApi }
