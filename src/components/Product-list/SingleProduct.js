@@ -86,9 +86,20 @@ const SingleProduct = () => {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl tracking-tight text-gray-900">
-                {`$${product?.price}`}
-              </p>
+              <div className="flex flex-row gap-3">
+                <p
+                  className={`text-3xl tracking-tight text-gray-900 ${
+                    product?.salePrice ? 'line-through' : ''
+                  }`}
+                >
+                  {`$${product?.price}`}
+                </p>
+                {product?.salePrice && (
+                  <p className="text-3xl tracking-tight text-red-600">
+                    ${product?.salePrice}
+                  </p>
+                )}
+              </div>
 
               <form className="mt-10">
                 {/* Colors */}
