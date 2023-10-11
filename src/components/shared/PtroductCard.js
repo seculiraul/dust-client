@@ -23,7 +23,20 @@ const ProductCard = ({ product }) => {
         />
       </div>
       <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-      <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
+      <div className="flex flex-row gap-3">
+        <p
+          className={`mt-1 text-lg font-medium text-gray-900 ${
+            product?.salePrice ? 'line-through' : ''
+          }`}
+        >
+          ${product.price}
+        </p>
+        {product?.salePrice && (
+          <p className="mt-1 text-lg font-medium text-red-600">
+            ${product?.salePrice}
+          </p>
+        )}
+      </div>
     </div>
   )
 }
