@@ -121,7 +121,17 @@ const useCheckouForm = (userDetails) => {
     city.length < 1 ||
     region < 1
 
-  return { inputs, areAllInputsValid }
+  const getInputs = {
+    firstName,
+    lastName,
+    address,
+    city,
+    region,
+    phone,
+    email,
+  }
+
+  return { inputs, areAllInputsValid, getInputs }
 }
 
 export default useCheckouForm

@@ -89,12 +89,12 @@ const SingleProduct = () => {
               <div className="flex flex-row gap-3">
                 <p
                   className={`text-3xl tracking-tight text-gray-900 ${
-                    product?.salePrice ? 'line-through' : ''
+                    product?.isOnSale ? 'line-through' : ''
                   }`}
                 >
                   {`$${product?.price}`}
                 </p>
-                {product?.salePrice && (
+                {product?.isOnSale && (
                   <p className="text-3xl tracking-tight text-red-600">
                     ${product?.salePrice}
                   </p>
