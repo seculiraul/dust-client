@@ -12,8 +12,18 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProductToCart: (state, action) => {
-      const { _id, code, price, displayImage, name, size } = action.payload
+      const {
+        _id,
+        code,
+        price,
+        salePrice,
+        isOnSale,
+        displayImage,
+        name,
+        size,
+      } = action.payload
       const nameAndSize = code + size
+      const itemPrice = isOnSale ? +salePrice : price
 
       if (state.items.find((el) => el.nameAndSize === nameAndSize)) {
         const cartItems = state.items.map((item) => {
@@ -29,7 +39,7 @@ const cartSlice = createSlice({
         })
         return {
           items: cartItems,
-          totalCart: state.totalCart + price,
+          totalCart: state.totalCart + itemPrice,
         }
       } else {
         return {
@@ -38,15 +48,15 @@ const cartSlice = createSlice({
             {
               _id,
               nameAndSize,
-              price,
+              price: itemPrice,
               displayImage,
               name,
               size,
               quantity: 1,
-              totalPrice: price,
+              totalPrice: itemPrice,
             },
           ],
-          totalCart: state.totalCart + price,
+          totalCart: state.totalCart + itemPrice,
         }
       }
     },

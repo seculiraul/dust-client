@@ -25,7 +25,11 @@ const CheckoutPage = () => {
   }, [transportCost])
 
   const onSubmit = async (info) => {
-    const products = items.map(({ _id: id, quantity }) => ({ id, quantity }))
+    const products = items.map(({ _id: id, quantity, size }) => ({
+      id,
+      quantity,
+      size,
+    }))
     await addOrder({ products, total: totalOrder, transportCost, ...info })
   }
   return (

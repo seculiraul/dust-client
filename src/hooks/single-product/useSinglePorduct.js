@@ -25,16 +25,15 @@ const useSingleProduct = () => {
   } = useLinks()
 
   useEffect(() => {
-    const otherColors = data?.data?.product?.otherColors.map((color) => {
-      const code = data?.data?.product?.name
-        ?.toLocaleLowerCase()
-        .replace(/\s/g, '-')
-      return {
-        color,
-        class: `bg-${color}-500`,
-        onClick: () => navigate(`${products}/${code}-${color}`),
+    const otherColors = data?.data?.product?.otherColors.map(
+      ({ color, code }) => {
+        return {
+          color,
+          class: `bg-${color}-500`,
+          onClick: () => navigate(`${products}/${code}`),
+        }
       }
-    })
+    )
     const breadcrumbs = [
       { id: 1, name: data?.data?.product?.gender, link: '/men' },
       { id: 2, name: data?.data?.product?.name },
@@ -60,11 +59,6 @@ const useSingleProduct = () => {
         size: selectedSize,
       })
     )
-  }
-
-  const onOtherColorClick = (color) => {
-    const code = product?.name?.toLocaleLowerCase().replace(/\s/g, '-')
-    navigate(`${products}/${code}-${color}`)
   }
 
   const onDeleteClick = (e) => {
@@ -93,7 +87,6 @@ const useSingleProduct = () => {
     user,
     dialogProps,
     onAddToCart,
-    onOtherColorClick,
     onDeleteClick,
     onEditClick,
   }

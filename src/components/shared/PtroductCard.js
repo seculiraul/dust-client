@@ -26,12 +26,12 @@ const ProductCard = ({ product }) => {
       <div className="flex flex-row gap-3">
         <p
           className={`mt-1 text-lg font-medium text-gray-900 ${
-            product?.salePrice ? 'line-through' : ''
+            product?.isOnSale ? 'line-through' : ''
           }`}
         >
           ${product.price}
         </p>
-        {product?.salePrice && (
+        {product?.isOnSale && (
           <p className="mt-1 text-lg font-medium text-red-600">
             ${product?.salePrice}
           </p>

@@ -2,9 +2,14 @@ import { useRef, useState } from 'react'
 import useCheckouForm from '../../hooks/checkout/useCheckoutForm'
 import PrimaryButton from '../shared/buttons/PrimaryButton'
 
-const CheckoutForm = ({ totalCart, onDeliveryChange, userDetails }) => {
+const CheckoutForm = ({
+  totalCart,
+  onDeliveryChange,
+  userDetails,
+  onSubmit,
+}) => {
   const form = useRef()
-  const { inputs, areAllInputsValid } = useCheckouForm(userDetails)
+  const { inputs, areAllInputsValid, getInputs } = useCheckouForm(userDetails)
 
   const [payMethod, setPaymethod] = useState('')
   const [deliveryOption, setDeliveryOption] = useState('')
@@ -12,32 +17,12 @@ const CheckoutForm = ({ totalCart, onDeliveryChange, userDetails }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    console.log(form)
-
-    // const info = {
-    //   deliveryDetails: {
-    //     firstName,
-    //     lastName,
-    //     address,
-    //     city,
-    //     region,
-    //     phone,
-    //     email,
-    //   },
-    //   payMethod,
-    //   deliveryOption,
-    // }
-    // onSubmit(info)
-
-    // setFirstName('')
-    // setLastName('')
-    // setAddress('')
-    // setCity('')
-    // setRegion('')
-    // setPhone('')
-    // setEmail('')
-    // setPaymethod('card')
-    // setDeliveryOption('fastCourier')
+    const info = {
+      deliveryDetails: getInputs,
+      payMethod,
+      deliveryOption,
+    }
+    onSubmit(info)
   }
 
   const handleOnDeliveryChange = (option) => {
