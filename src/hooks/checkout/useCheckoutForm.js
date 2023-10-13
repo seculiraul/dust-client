@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 
 const useCheckouForm = (userDetails) => {
-  const [firstName, setFirstName] = useState(userDetails?.firstName ?? '')
+  const [firstName, setFirstName] = useState('')
 
-  const [lastName, setLastName] = useState(userDetails?.lastName ?? '')
+  const [lastName, setLastName] = useState('')
 
-  const [address, setAddress] = useState(userDetails?.address ?? '')
+  const [address, setAddress] = useState('')
 
-  const [city, setCity] = useState(userDetails?.city ?? '')
-  const [region, setRegion] = useState(userDetails?.region ?? '')
+  const [city, setCity] = useState('')
+  const [region, setRegion] = useState('')
 
-  const [phone, setPhone] = useState(userDetails?.phone ?? '')
+  const [phone, setPhone] = useState('')
   const [phoneFocus, setPhoneFocus] = useState(false)
   const [phoneValid, setPhoneValid] = useState(false)
 
-  const [email, setEmail] = useState(userDetails?.email ?? '')
+  const [email, setEmail] = useState('')
   const [emailFocus, setEmailFocus] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
 
@@ -28,6 +28,16 @@ const useCheckouForm = (userDetails) => {
   useEffect(() => {
     setEmailValid(EMAIL_REGEX.test(email))
   }, [email])
+
+  useEffect(() => {
+    setFirstName(userDetails?.firstName ?? '')
+    setLastName(userDetails?.lastName ?? '')
+    setAddress(userDetails?.address ?? '')
+    setCity(userDetails?.city ?? '')
+    setRegion(userDetails?.region ?? '')
+    setPhone(userDetails?.phone ?? '')
+    setEmail(userDetails?.email ?? '')
+  }, [userDetails])
 
   const inputs = {
     nameInputs: [
