@@ -55,7 +55,7 @@ const productApi = createApi({
         return {
           url: `/api/v1/products/${params.id}`,
           method: 'PATCH',
-          body: params.editedProduct,
+          body: params.editProduct,
         }
       },
     }),
