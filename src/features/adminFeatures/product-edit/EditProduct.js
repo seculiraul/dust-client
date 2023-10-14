@@ -7,7 +7,8 @@ const EditProduct = () => {
   const { state } = useLocation()
 
   const onSubmitClick = async (data) => {
-    await editProduct({ id: state?.prodct?._id, editProduct: data })
+    console.log({ id: state?.product?._id, editProduct: data })
+    await editProduct({ id: state?.product?._id, editProduct: data })
   }
 
   return (
