@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { FETCH_PRODUCTS, FETCH_SINGLE_PRODUCT } from '../../enums/tagsEnum'
 
 const productApi = createApi({
   reducerPath: 'products',
@@ -23,7 +24,7 @@ const productApi = createApi({
           },
         }
       },
-      providesTags: ['FETCH_PRODUCTS'],
+      providesTags: [FETCH_PRODUCTS],
     }),
     fetchRecomandedProducts: builder.query({
       query: (param) => {
@@ -40,6 +41,7 @@ const productApi = createApi({
           method: 'GET',
         }
       },
+      providesTags: [FETCH_SINGLE_PRODUCT],
     }),
     createProduct: builder.mutation({
       query: (product) => {
@@ -49,6 +51,7 @@ const productApi = createApi({
           body: product,
         }
       },
+      invalidatesTags: [FETCH_PRODUCTS],
     }),
     editProduct: builder.mutation({
       query: (params) => {
@@ -58,6 +61,7 @@ const productApi = createApi({
           body: params.editProduct,
         }
       },
+      invalidatesTags: [FETCH_PRODUCTS, FETCH_SINGLE_PRODUCT],
     }),
     deleteProduct: builder.mutation({
       query: (id) => {
@@ -66,7 +70,7 @@ const productApi = createApi({
           method: 'DELETE',
         }
       },
-      invalidatesTags: ['FETCH_PRODUCTS'],
+      invalidatesTags: [FETCH_PRODUCTS, FETCH_SINGLE_PRODUCT],
     }),
   }),
 })
