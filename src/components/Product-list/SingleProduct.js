@@ -36,8 +36,8 @@ const SingleProduct = () => {
             <div className="pt-6">
               <nav aria-label="Breadcrumb">
                 <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                  {product?.breadcrumbs?.map((breadcrumb) => (
-                    <li key={breadcrumb.id}>
+                  {product?.breadcrumbs?.map((breadcrumb, index) => (
+                    <li key={index}>
                       <div className="flex items-center">
                         <a
                           href={breadcrumb.name}
@@ -120,11 +120,11 @@ const SingleProduct = () => {
                             Choose a color{' '}
                           </RadioGroup.Label>
                           <div className="flex items-center space-x-3">
-                            {product?.otherColors?.map((col) => (
+                            {product?.otherColors?.map((col, index) => (
                               <RadioGroup.Option
+                                key={index}
                                 style={{ backgroundColor: col?.color }}
                                 onClick={() => col?.onClick()}
-                                key={col?.color}
                                 className={({ active, checked }) =>
                                   classNames(
                                     `ring-gray-400`,
@@ -178,9 +178,9 @@ const SingleProduct = () => {
                           Choose a size{' '}
                         </RadioGroup.Label>
                         <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                          {product?.sizes?.map((el) => (
+                          {product?.sizes?.map((el, index) => (
                             <RadioGroup.Option
-                              key={el?.size}
+                              key={index}
                               value={el?.size}
                               disabled={!(el?.quantity > 0)}
                               className={({ active }) =>
@@ -289,8 +289,8 @@ const SingleProduct = () => {
 
                     <div className="mt-4">
                       <ul className="list-disc space-y-2 pl-4 text-sm">
-                        {product?.specs?.map((highlight) => (
-                          <li key={highlight} className="text-gray-400">
+                        {product?.specs?.map((highlight, index) => (
+                          <li key={index} className="text-gray-400">
                             <span className="text-gray-600">{highlight}</span>
                           </li>
                         ))}
