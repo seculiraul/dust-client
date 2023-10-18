@@ -5,7 +5,7 @@ const useGetFilterConfigs = () => {
         id: 'category',
         name: 'Category',
         options: [
-          { value: 'tshirt', label: 'T-Shirt', checked: false },
+          { value: 'Tricouri', label: 'T-Shirt', checked: false },
           { value: 'sweat', label: 'Sweat', checked: false },
           { value: 'shirt', label: 'Shirt', checked: false },
           { value: 'jeans', label: 'Jeans', checked: false },

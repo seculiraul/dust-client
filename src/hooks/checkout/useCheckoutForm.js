@@ -18,7 +18,7 @@ const useCheckouForm = (userDetails) => {
   const [emailFocus, setEmailFocus] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
 
-  const PHONE_REGEX = /^\(\d{3}\) \d{3}-\d{4}$/
+  const PHONE_REGEX = /^[0-9\+\-]{6,15}$/
   const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 
   useEffect(() => {
