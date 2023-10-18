@@ -10,7 +10,15 @@ const Orders = () => {
   return (
     <>
       {isSuccess ? (
-        <div className="flex flex-col space-y-4">{renderedOrders}</div>
+        <div className="flex flex-col space-y-4">
+          {data?.data?.orders.length > 0 ? (
+            renderedOrders
+          ) : (
+            <span className="p-4 pb-8 ml-12 font-bold text-xl">
+              Currently you do not have any orders
+            </span>
+          )}
+        </div>
       ) : (
         <span>Loading data</span>
       )}
