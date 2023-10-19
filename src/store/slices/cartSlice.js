@@ -86,10 +86,18 @@ const cartSlice = createSlice({
 
       return { items: cartItems, totalCart: totalPrice }
     },
+
+    removeAllItems: (state, action) => {
+      return { items: [], totalCart: 0 }
+    },
   },
 })
 
-export const { addProductToCart, editCartItem, removeCartItem } =
-  cartSlice.actions
+export const {
+  addProductToCart,
+  editCartItem,
+  removeCartItem,
+  removeAllItems,
+} = cartSlice.actions
 
 export { cartSlice }

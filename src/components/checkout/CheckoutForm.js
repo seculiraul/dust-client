@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import useCheckouForm from '../../hooks/checkout/useCheckoutForm'
 import PrimaryButton from '../shared/buttons/PrimaryButton'
+import CustomRadioGroup from '../shared/radioButtons/CustomRadioGroup'
 
 const CheckoutForm = ({
   totalCart,
@@ -69,6 +70,36 @@ const CheckoutForm = ({
     contactInputs: inputs.contactInputs.map((input) => mapInput(input)),
   }
 
+  // const deliverys = [
+  //   {
+  //     value: 'fastCourier',
+  //     title: 'Fast Courier',
+  //   },
+  //   {
+  //     value: 'courier',
+  //     title: 'Standard Courier',
+  //   },
+  //   {
+  //     value: 'post',
+  //     title: 'Deliver by Post',
+  //   },
+  // ]
+
+  // const payMethods = [
+  //   {
+  //     value: 'card',
+  //     title: 'Pay via Card',
+  //   },
+  //   {
+  //     value: 'paypal',
+  //     title: 'Pay via Paypal',
+  //   },
+  //   {
+  //     value: 'delivery',
+  //     title: 'Pay at Delivery',
+  //   },
+  // ]
+
   return (
     <div className="max-w-[1500px] w-full mx-auto text-center m-5 p-10">
       <div className="flex flex-col w-full p-4  items-start justify-items-center  border border-gray-200 space-y-2 md:items-center md:flex-row md:space-y-0 md:space=x=4 md:items-start">
@@ -92,6 +123,17 @@ const CheckoutForm = ({
             </div>
           </div>
           <div className="flex flex-col h-42 p-2 space-y-2 md:w-1/3">
+            {/* <div className="m-2 p-2 border-b-0 w-full">
+              <CustomRadioGroup
+                radioTitle="Select payment method"
+                radioInputs={payMethods}
+                onValueChange={(value) => setPaymethod(value)}
+              />
+              <CustomRadioGroup
+                radioTitle="Select delivery method"
+                radioInputs={deliverys}
+                onValueChange={(value) => handleOnDeliveryChange(value)}
+              /> */}
             <div className="m-2 p-2 border-b-0 w-full">
               <div className="flex flex-col m-2 p-2 pb-6 border-b-2 border-slate-700 md:ml-7 space-y-3 items-start">
                 <h2 className="text-lg font-bold">Select payment method</h2>
