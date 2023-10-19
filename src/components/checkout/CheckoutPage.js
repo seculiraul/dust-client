@@ -1,16 +1,23 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+import useLinks from '../../hooks/shared/useLinks'
 import { useAddOrderMutation, useGetUserDetailsQuery } from '../../store'
+import { removeAllItems } from '../../store/slices/cartSlice'
 import CheckoutForm from './CheckoutForm'
 
 const CheckoutPage = () => {
-  const dispatch = useDispatch()
   const { items, totalCart } = useSelector((state) => state.cartDetails)
   const [totalOrder, setTotalOrder] = useState(totalCart)
   const [transportCost, setTransportCost] = useState(0)
   const { data, isSuccess } = useGetUserDetailsQuery()
 
   const [addOrder] = useAddOrderMutation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const {
+    pathnames: { home },
+  } = useLinks()
 
   const onDeliveryChange = (option) => {
     if (option === 'fastCourier') {
@@ -31,6 +38,8 @@ const CheckoutPage = () => {
       size,
     }))
     await addOrder({ products, total: totalOrder, transportCost, ...info })
+    dispatch(removeAllItems())
+    navigate(home)
   }
   return (
     <>
