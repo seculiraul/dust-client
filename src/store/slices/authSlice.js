@@ -8,9 +8,13 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       const { token } = action.payload
       const { email, name, role } = jwtDecode(token)
+      localStorage.setItem('user', JSON.stringify({ email, name, role }))
+      //localStorage.setItem('token', token)
       return { ...state, user: { email, name, role }, token }
     },
     logOut: (state, action) => {
+      localStorage.removeItem('user')
+      //localStorage.removeItem('token')
       return { ...state, user: null, token: null }
     },
   },

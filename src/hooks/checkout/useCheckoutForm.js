@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useCheckouForm = (userDetails) => {
+const useCheckouForm = (userDetails, totalCart) => {
   const [firstName, setFirstName] = useState('')
 
   const [lastName, setLastName] = useState('')
@@ -18,6 +18,12 @@ const useCheckouForm = (userDetails) => {
   const [emailFocus, setEmailFocus] = useState(false)
   const [emailValid, setEmailValid] = useState(false)
 
+  const [payMethod, setPaymethod] = useState('')
+  const [deliveryOption, setDeliveryOption] = useState('')
+
+  const [total, setTotal] = useState(0)
+  const [transportCost, setTransportCost] = useState(0)
+
   const PHONE_REGEX = /^[0-9\+\-]{6,15}$/
   const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 
@@ -28,6 +34,10 @@ const useCheckouForm = (userDetails) => {
   useEffect(() => {
     setEmailValid(EMAIL_REGEX.test(email))
   }, [email])
+
+  useEffect(() => {
+    setTotal(() => totalCart + transportCost)
+  }, [totalCart, transportCost])
 
   useEffect(() => {
     setFirstName(userDetails?.firstName ?? '')
@@ -120,6 +130,49 @@ const useCheckouForm = (userDetails) => {
         paragraphMsg: 'Enter a Valid Email',
       },
     ],
+
+    deliveryMethods: [
+      {
+        value: 'fastCourier',
+        title: 'Fast Courier',
+      },
+      {
+        value: 'courier',
+        title: 'Standard Courier',
+      },
+      {
+        value: 'post',
+        title: 'Deliver by Post',
+      },
+    ],
+
+    payMethods: [
+      {
+        value: 'card',
+        title: 'Pay via Card',
+      },
+      {
+        value: 'paypal',
+        title: 'Pay via Paypal',
+      },
+      {
+        value: 'delivery',
+        title: 'Pay at Delivery',
+      },
+    ],
+  }
+
+  const handleOnDeliveryChange = (option) => {
+    setDeliveryOption(option)
+    if (option === 'fastCourier') {
+      setTransportCost(() => 15)
+    } else {
+      setTransportCost(() => 10)
+    }
+  }
+
+  const handleOnPayMethodChange = (option) => {
+    setPaymethod(option)
   }
 
   const areAllInputsValid =
@@ -141,7 +194,16 @@ const useCheckouForm = (userDetails) => {
     email,
   }
 
-  return { inputs, areAllInputsValid, getInputs }
+  return {
+    inputs,
+    areAllInputsValid,
+    getInputs,
+    payMethod,
+    deliveryOption,
+    total,
+    handleOnDeliveryChange,
+    handleOnPayMethodChange,
+  }
 }
 
 export default useCheckouForm
