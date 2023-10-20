@@ -18,9 +18,12 @@ import RequireRole from './features/navigation/RequireRole'
 import ProductsMain from './features/productPage/ProductsMain'
 import useLinks from './hooks/shared/useLinks'
 import EditProduct from './features/adminFeatures/product-edit/EditProduct'
+import RequireCondition from './features/navigation/RequireCondition'
+import { useSelector } from 'react-redux'
 
 const App = () => {
   const { pathnames } = useLinks()
+  const { items } = useSelector((state) => state?.cartDetails)
   return (
     <div className="flex flex-col h-screen">
       <Header />
@@ -30,10 +33,21 @@ const App = () => {
         <Route path={pathnames.signIn} element={<SignIn />} />
         <Route path={pathnames.signUp} element={<SignUp />} />
         <Route path={pathnames.cart} element={<ShoppingCartPage />} />
-        <Route path={pathnames.checkout} element={<CheckoutPage />} />
         <Route path={pathnames.products} element={<ProductsMain />} />
         <Route path={pathnames.singleProduct} element={<SingleProduct />} />
         <Route path={pathnames.productEditor} element={<EditProduct />} />
+
+        {/* Condition must be true */}
+        <Route
+          element={
+            <RequireCondition
+              condition={items?.length > 0}
+              navigationPath={pathnames?.products}
+            />
+          }
+        >
+          <Route path={pathnames.checkout} element={<CheckoutPage />} />
+        </Route>
 
         {/* specific role routes */}
         <Route element={<RequireRole role={'user'} />}>

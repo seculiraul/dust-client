@@ -1,19 +1,20 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import useCheckouForm from '../../hooks/checkout/useCheckoutForm'
 import PrimaryButton from '../shared/buttons/PrimaryButton'
 import CustomRadioGroup from '../shared/radioButtons/CustomRadioGroup'
 
-const CheckoutForm = ({
-  totalCart,
-  onDeliveryChange,
-  userDetails,
-  onSubmit,
-}) => {
+const CheckoutForm = ({ totalCart, userDetails, onSubmit }) => {
   const form = useRef()
-  const { inputs, areAllInputsValid, getInputs } = useCheckouForm(userDetails)
-
-  const [payMethod, setPaymethod] = useState('')
-  const [deliveryOption, setDeliveryOption] = useState('')
+  const {
+    inputs,
+    areAllInputsValid,
+    getInputs,
+    payMethod,
+    deliveryOption,
+    total,
+    handleOnDeliveryChange,
+    handleOnPayMethodChange,
+  } = useCheckouForm(userDetails, totalCart)
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
@@ -24,11 +25,6 @@ const CheckoutForm = ({
       deliveryOption,
     }
     onSubmit(info)
-  }
-
-  const handleOnDeliveryChange = (option) => {
-    setDeliveryOption(option)
-    onDeliveryChange(option)
   }
 
   const mapInput = (input) => {
@@ -70,36 +66,6 @@ const CheckoutForm = ({
     contactInputs: inputs.contactInputs.map((input) => mapInput(input)),
   }
 
-  // const deliverys = [
-  //   {
-  //     value: 'fastCourier',
-  //     title: 'Fast Courier',
-  //   },
-  //   {
-  //     value: 'courier',
-  //     title: 'Standard Courier',
-  //   },
-  //   {
-  //     value: 'post',
-  //     title: 'Deliver by Post',
-  //   },
-  // ]
-
-  // const payMethods = [
-  //   {
-  //     value: 'card',
-  //     title: 'Pay via Card',
-  //   },
-  //   {
-  //     value: 'paypal',
-  //     title: 'Pay via Paypal',
-  //   },
-  //   {
-  //     value: 'delivery',
-  //     title: 'Pay at Delivery',
-  //   },
-  // ]
-
   return (
     <div className="max-w-[1500px] w-full mx-auto text-center m-5 p-10">
       <div className="flex flex-col w-full p-4  items-start justify-items-center  border border-gray-200 space-y-2 md:items-center md:flex-row md:space-y-0 md:space=x=4 md:items-start">
@@ -123,98 +89,23 @@ const CheckoutForm = ({
             </div>
           </div>
           <div className="flex flex-col h-42 p-2 space-y-2 md:w-1/3">
-            {/* <div className="m-2 p-2 border-b-0 w-full">
+            <div className="m-2 p-2 border-b-0 w-full">
               <CustomRadioGroup
                 radioTitle="Select payment method"
-                radioInputs={payMethods}
-                onValueChange={(value) => setPaymethod(value)}
+                radioInputs={inputs?.payMethods}
+                onValueChange={(value) => handleOnPayMethodChange(value)}
               />
               <CustomRadioGroup
                 radioTitle="Select delivery method"
-                radioInputs={deliverys}
+                radioInputs={inputs?.deliveryMethods}
                 onValueChange={(value) => handleOnDeliveryChange(value)}
-              /> */}
+              />
+            </div>
             <div className="m-2 p-2 border-b-0 w-full">
-              <div className="flex flex-col m-2 p-2 pb-6 border-b-2 border-slate-700 md:ml-7 space-y-3 items-start">
-                <h2 className="text-lg font-bold">Select payment method</h2>
-                <div>
-                  <input
-                    type="radio"
-                    onChange={(e) => setPaymethod(e.target.value)}
-                    id="payCard"
-                    name="pay"
-                    value="card"
-                    checked={payMethod === 'card'}
-                  />
-                  <label className="ml-2 font-medium">Pay via card</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    onChange={(e) => setPaymethod(e.target.value)}
-                    id="payPaypal"
-                    name="pay"
-                    value={'paypal'}
-                    checked={payMethod === 'paypal'}
-                  />
-                  <label className="ml-2 font-medium">Pay via Paypal</label>
-                </div>
-
-                <div>
-                  <input
-                    type="radio"
-                    onChange={(e) => setPaymethod(e.target.value)}
-                    id="payDelivery"
-                    name="pay"
-                    value="delivery"
-                    checked={payMethod === 'delivery'}
-                  />
-                  <label className="ml-2 font-medium">Pay at delivery</label>
-                </div>
-                <br />
-              </div>
-
-              <div className="flex flex-col m-2 p-2 mt-4 md:ml-7 space-y-3 items-start">
-                <h2 className="text-lg font-bold">Select delivery method</h2>
-                <div>
-                  <input
-                    onChange={(e) => handleOnDeliveryChange(e.target.value)}
-                    type="radio"
-                    id="fastCourier"
-                    name="delivery"
-                    value="fastCourier"
-                    checked={deliveryOption === 'fastCourier'}
-                  />
-                  <label className="ml-2 font-medium">Fast Courier</label>
-                </div>
-                <div>
-                  <input
-                    onChange={(e) => handleOnDeliveryChange(e.target.value)}
-                    type="radio"
-                    id="courier"
-                    name="delivery"
-                    value="standardCourier"
-                    checked={deliveryOption === 'standardCourier'}
-                  />
-                  <label className="ml-2 font-medium">Standard Courier</label>
-                </div>
-
-                <div>
-                  <input
-                    onChange={(e) => handleOnDeliveryChange(e.target.value)}
-                    type="radio"
-                    id="post"
-                    name="delivery"
-                    value="post"
-                    checked={deliveryOption === 'post'}
-                  />
-                  <label className="ml-2 font-medium">Deliver by Post</label>
-                </div>
-              </div>
               <div className="p-2 m-4 text-lg">
                 <h2 className="text-lg font-medium">
                   Total:{' '}
-                  <span className="ml-2 text-2xl font-bold">{`${totalCart} $`}</span>
+                  <span className="ml-2 text-2xl font-bold">{`${total} $`}</span>
                 </h2>
               </div>
               <PrimaryButton

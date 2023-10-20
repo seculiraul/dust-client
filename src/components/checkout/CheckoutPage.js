@@ -44,7 +44,7 @@ const CheckoutPage = () => {
   return (
     <>
       <CheckoutForm
-        totalCart={totalOrder}
+        totalCart={totalCart}
         onSubmit={onSubmit}
         onDeliveryChange={onDeliveryChange}
         userDetails={isSuccess ? data?.data : {}}
