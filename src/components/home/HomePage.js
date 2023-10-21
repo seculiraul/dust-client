@@ -10,7 +10,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="flex flex-col allign-center items-center gap-2 mx-auto max-w-[300px] lg:max-w-[1500px] md:max=w-[1200px] sm:max-w-[500px]">
+      <div className="flex flex-col allign-center items-center gap-2 mx-auto max-w-sm xl:max-w-7xl lg:max-w-3xl md:max-w-2xl sm:max-w-lg">
         <div className="w-full mx-auto bg-zinc-200">
           <ImageSlade slides={slides} />
         </div>

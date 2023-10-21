@@ -15,11 +15,11 @@ const FilterInputs = ({ section, extended, ...rest }) => {
     <Disclosure
       as="div"
       key={section.id}
-      className="border-t border-gray-200 px-4 py-6"
+      className="border-t border-gray-200 px-4 py-2"
     >
       {({ open }) => (
         <>
-          <h3 className="-mx-2 -my-3 flow-root">
+          <h3 className="-mx-2 my-3 flow-root">
             <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
               <span className="font-medium text-gray-900">{section.name}</span>
               <span className="ml-6 flex items-center">
@@ -31,7 +31,7 @@ const FilterInputs = ({ section, extended, ...rest }) => {
               </span>
             </Disclosure.Button>
           </h3>
-          <Disclosure.Panel className="pt-6">
+          <Disclosure.Panel className="mt-2 pt-6 h-[15vh] lg:h-[25vh] overflow-auto">
             <div className="space-y-6">
               {section.options.map((option, optionIdx) => (
                 <div key={option.value} className="flex items-center">

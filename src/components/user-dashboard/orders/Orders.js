@@ -4,8 +4,8 @@ import OrderCard from './OrderCard'
 const Orders = () => {
   const { data, isSuccess } = useGetOrdersQuery()
 
-  const renderedOrders = data?.data?.orders.map((order) => (
-    <OrderCard order={order} key={order.title} />
+  const renderedOrders = data?.data?.orders.map((order, index) => (
+    <OrderCard order={order} key={index} />
   ))
   return (
     <>
