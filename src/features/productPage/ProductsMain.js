@@ -41,23 +41,25 @@ const ProductsMain = () => {
   }
 
   return isSuccess ? (
-    <div className="mx-auto max-w-7xl px-4 sm:px06 lg:px-8">
+    <div className="mx-auto max-w-md xl:max-w-7xl lg:max-w-3xl md:max-w-xl sm:max-w-lg px-4 sm:px06 lg:px-8">
       <div className="w-full flex flex-row justify-between">
         <h2 className="p-2 mx-2 text-3xl font-bold">Products</h2>
         <Sort sortOptions={sortOptions} sortClick={onSortClick} />
       </div>
-      <div className="flex flex-row justify-start w-full">
-        <div className="p-2 mr-24">
+      <div className="flex flex-col lg:flex-row justify-start w-full">
+        <div className="p-2 lg:mr-24">
           <FilterMain data={standard} />
         </div>
         <div className="flex flex-col">
           <ProductList products={data?.data?.products} />
-          <button
-            onClick={() => handleLoadMore()}
-            className="mx-auto p-2 px-4 rounded bg-gray-500 text-white hover:bg-gray-700 duration-300"
-          >
-            Load More
-          </button>
+          {data?.data?.products.length > 20 && (
+            <button
+              onClick={() => handleLoadMore()}
+              className="mx-auto p-2 px-4 rounded bg-gray-500 text-white hover:bg-gray-700 duration-300"
+            >
+              Load More
+            </button>
+          )}
         </div>
       </div>
     </div>
