@@ -41,7 +41,7 @@ const ProductsMain = () => {
   }
 
   return isSuccess ? (
-    <div className="mx-auto max-w-md xl:max-w-7xl lg:max-w-3xl md:max-w-xl sm:max-w-lg px-4 sm:px06 lg:px-8">
+    <div className="mx-auto lg:mx-0 lg:ml-32 max-w-md xl:max-w-7xl lg:max-w-3xl md:max-w-2xl sm:max-w-xl px-4 sm:px06 lg:px-8">
       <div className="w-full flex flex-row justify-between">
         <h2 className="p-2 mx-2 text-3xl font-bold">Products</h2>
         <Sort sortOptions={sortOptions} sortClick={onSortClick} />
