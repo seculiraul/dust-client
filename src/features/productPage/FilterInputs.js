@@ -31,7 +31,7 @@ const FilterInputs = ({ section, extended, ...rest }) => {
               </span>
             </Disclosure.Button>
           </h3>
-          <Disclosure.Panel className="mt-2 pt-6 h-[15vh] lg:h-[25vh] overflow-auto">
+          <Disclosure.Panel className="mt-2 pt-6 max-h-[15vh] lg:max-h-[25vh] overflow-auto">
             <div className="space-y-6">
               {section.options.map((option, optionIdx) => (
                 <div key={option.value} className="flex items-center">
