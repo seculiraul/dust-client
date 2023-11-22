@@ -50,6 +50,14 @@ const userApi = createApi({
       },
       invalidatesTags: ['UserDetails'],
     }),
+    refresh: builder.query({
+      query: () => {
+        return {
+          url: '/api/auth/refresh',
+          method: 'GET',
+        }
+      },
+    }),
   }),
 })
 
@@ -58,5 +66,6 @@ export const {
   useSignOutMutation,
   useGetUserDetailsQuery,
   useUpdateUserDetailsMutation,
+  useRefreshQuery,
 } = userApi
 export { userApi }

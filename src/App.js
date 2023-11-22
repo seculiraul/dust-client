@@ -20,6 +20,7 @@ import useLinks from './hooks/shared/useLinks'
 import EditProduct from './features/adminFeatures/product-edit/EditProduct'
 import RequireCondition from './features/navigation/RequireCondition'
 import { useSelector } from 'react-redux'
+import CheckAuth from './components/CheckAuth'
 
 const App = () => {
   const { pathnames } = useLinks()
@@ -28,43 +29,44 @@ const App = () => {
     <div className="flex flex-col h-screen">
       <Header />
       <Routes>
-        {/* public routes */}
-        <Route path={pathnames.home} element={<HomePage />} />
-        <Route path={pathnames.signIn} element={<SignIn />} />
-        <Route path={pathnames.signUp} element={<SignUp />} />
-        <Route path={pathnames.cart} element={<ShoppingCartPage />} />
-        <Route path={pathnames.products} element={<ProductsMain />} />
-        <Route path={pathnames.singleProduct} element={<SingleProduct />} />
-        <Route path={pathnames.productEditor} element={<EditProduct />} />
+        <Route element={<CheckAuth />}>
+          {/* public routes */}
+          <Route path={pathnames.home} element={<HomePage />} />
+          <Route path={pathnames.signIn} element={<SignIn />} />
+          <Route path={pathnames.signUp} element={<SignUp />} />
+          <Route path={pathnames.cart} element={<ShoppingCartPage />} />
+          <Route path={pathnames.products} element={<ProductsMain />} />
+          <Route path={pathnames.singleProduct} element={<SingleProduct />} />
+          <Route path={pathnames.productEditor} element={<EditProduct />} />
 
-        {/* Condition must be true */}
-        <Route
-          element={
-            <RequireCondition
-              condition={items?.length > 0}
-              navigationPath={pathnames?.products}
-            />
-          }
-        >
-          <Route path={pathnames.checkout} element={<CheckoutPage />} />
-        </Route>
+          {/* Condition must be true */}
+          <Route
+            element={
+              <RequireCondition
+                condition={items?.length > 0}
+                navigationPath={pathnames?.products}
+              />
+            }
+          >
+            <Route path={pathnames.checkout} element={<CheckoutPage />} />
+          </Route>
 
-        {/* specific role routes */}
-        <Route element={<RequireRole role={'user'} />}>
-          <Route path={pathnames.admin} element={<AdminPage />}>
-            <Route path={pathnames.creation} element={<ProductCreation />} />
-            <Route path={pathnames.newCode} element={<CodeCreation />} />
+          {/* specific role routes */}
+          <Route element={<RequireRole role={'user'} />}>
+            <Route path={pathnames.admin} element={<AdminPage />}>
+              <Route path={pathnames.creation} element={<ProductCreation />} />
+              <Route path={pathnames.newCode} element={<CodeCreation />} />
+            </Route>
+          </Route>
+
+          {/* private auth routes */}
+          <Route element={<RequireAuth />}>
+            <Route path={pathnames.user} element={<UserDetails />}>
+              <Route path={pathnames.details} element={<AccountDetails />} />
+              <Route path={pathnames.orders} element={<Orders />} />
+            </Route>
           </Route>
         </Route>
-
-        {/* private auth routes */}
-        <Route element={<RequireAuth />}>
-          <Route path={pathnames.user} element={<UserDetails />}>
-            <Route path={pathnames.details} element={<AccountDetails />} />
-            <Route path={pathnames.orders} element={<Orders />} />
-          </Route>
-        </Route>
-
         <Route path={pathnames.notFound} element={<NotFound />} />
       </Routes>
     </div>
