@@ -35,7 +35,6 @@ const ProductsMain = () => {
   }
 
   const onSortClick = (val) => {
-    const sort = val
     searchParams.set('sort', val)
     setSerchParams(searchParams)
   }

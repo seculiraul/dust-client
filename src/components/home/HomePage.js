@@ -1,12 +1,11 @@
 import image from '../../all-project-assets/image-gallery/images/fallCollection.jpg'
 import { useFetchRecomandedProductsQuery } from '../../store'
-import PrimaryButton from '../shared/buttons/PrimaryButton'
 import ImageSlade from './ImageSlide'
 import ProductsSlide from './ProductsSlide'
 const HomePage = () => {
   const slides = [{ image }, { image }, { image }]
 
-  const { data, isSuccess } = useFetchRecomandedProductsQuery()
+  const { data } = useFetchRecomandedProductsQuery()
 
   return (
     <>
